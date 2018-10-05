@@ -1,0 +1,19 @@
+#container {
+	width: 80%;
+	margin: 60px auto 0 auto;
+	position: relative;
+	border-top: 5px solid #FF9800;
+	border-bottom: 5px solid #FF9800;
+}
+
+.left-box {
+	float:left;
+}
+
+.fight-box {
+	float:right;
+}
+
+#message {
+    display:none;
+}
