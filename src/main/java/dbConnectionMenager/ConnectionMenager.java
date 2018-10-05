@@ -11,7 +11,7 @@ public class ConnectionMenager {
 
     private static final String USERNAME = "root";
     private static final String PASSWORD = "toor";
-    private static final String CONN_STRING = "jdbc:mysql://localhost:3306/simpleuserlogin?useSSL=false&serverTimezone=UTC";
+    private static final String CONN_STRING = "jdbc:mysql://localhost:3306/contact?useSSL=false&serverTimezone=UTC";
 
     private static Connection connection = null;
 
