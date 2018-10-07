@@ -5,7 +5,6 @@ import java.util.Objects;
 public class Note {
 
     private Long id;
-    private User user;
     private String noteDescription;
     private String note;
     private boolean archived;
@@ -13,9 +12,8 @@ public class Note {
     public Note() {
     }
 
-    public Note(Long id, User user, String noteDescription, String note, boolean archived) {
+    public Note(Long id, String noteDescription, String note, boolean archived) {
         this.id = id;
-        this.user = user;
         this.noteDescription = noteDescription;
         this.note = note;
         this.archived = archived;
@@ -27,14 +25,6 @@ public class Note {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getNoteDescription() {
@@ -68,21 +58,19 @@ public class Note {
         Note note1 = (Note) o;
         return archived == note1.archived &&
                 Objects.equals(id, note1.id) &&
-                Objects.equals(user, note1.user) &&
                 Objects.equals(noteDescription, note1.noteDescription) &&
                 Objects.equals(note, note1.note);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, noteDescription, note, archived);
+        return Objects.hash(id, noteDescription, note, archived);
     }
 
     @Override
     public String toString() {
         return "Note{" +
                 "id=" + id +
-                ", user=" + user +
                 ", noteDescription='" + noteDescription + '\'' +
                 ", note='" + note + '\'' +
                 ", archived=" + archived +
