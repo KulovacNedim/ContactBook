@@ -5,7 +5,6 @@ import java.util.Objects;
 public class Address {
 
     private Long id;
-    private User user;
     private String addressDescription;
     private String state;
     private String city;
@@ -16,9 +15,8 @@ public class Address {
     public Address() {
     }
 
-    public Address(Long id, User user, String addressDescription, String state, String city, String street, String zipCode, Type type) {
+    public Address(Long id, String addressDescription, String state, String city, String street, String zipCode, Type type) {
         this.id = id;
-        this.user = user;
         this.addressDescription = addressDescription;
         this.state = state;
         this.city = city;
@@ -33,14 +31,6 @@ public class Address {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getAddressDescription() {
@@ -97,7 +87,6 @@ public class Address {
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
         return Objects.equals(id, address.id) &&
-                Objects.equals(user, address.user) &&
                 Objects.equals(addressDescription, address.addressDescription) &&
                 Objects.equals(state, address.state) &&
                 Objects.equals(city, address.city) &&
@@ -108,14 +97,13 @@ public class Address {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, addressDescription, state, city, street, zipCode, type);
+        return Objects.hash(id, addressDescription, state, city, street, zipCode, type);
     }
 
     @Override
     public String toString() {
         return "Address{" +
                 "id=" + id +
-                ", user=" + user +
                 ", addressDescription='" + addressDescription + '\'' +
                 ", state='" + state + '\'' +
                 ", city='" + city + '\'' +

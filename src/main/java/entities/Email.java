@@ -5,7 +5,6 @@ import java.util.Objects;
 public class Email {
 
     private Long id;
-    private User user;
     private String emailDescription;
     private String email;
     private Type type;
@@ -13,9 +12,8 @@ public class Email {
     public Email() {
     }
 
-    public Email(Long id, User user, String emailDescription, String email, Type type) {
+    public Email(Long id, String emailDescription, String email, Type type) {
         this.id = id;
-        this.user = user;
         this.emailDescription = emailDescription;
         this.email = email;
         this.type = type;
@@ -27,14 +25,6 @@ public class Email {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getEmailDescription() {
@@ -67,7 +57,6 @@ public class Email {
         if (o == null || getClass() != o.getClass()) return false;
         Email email1 = (Email) o;
         return Objects.equals(id, email1.id) &&
-                Objects.equals(user, email1.user) &&
                 Objects.equals(emailDescription, email1.emailDescription) &&
                 Objects.equals(email, email1.email) &&
                 Objects.equals(type, email1.type);
@@ -75,14 +64,13 @@ public class Email {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, emailDescription, email, type);
+        return Objects.hash(id, emailDescription, email, type);
     }
 
     @Override
     public String toString() {
         return "Email{" +
                 "id=" + id +
-                ", user=" + user +
                 ", emailDescription='" + emailDescription + '\'' +
                 ", email='" + email + '\'' +
                 ", type=" + type +

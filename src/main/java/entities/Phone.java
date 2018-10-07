@@ -5,7 +5,6 @@ import java.util.Objects;
 public class Phone {
 
     private Long id;
-    private User user;
     private String phoneDescription;
     private String phoneNumber;
     private Type type;
@@ -13,9 +12,8 @@ public class Phone {
     public Phone() {
     }
 
-    public Phone(Long id, User user, String phoneDescription, String phoneNumber, Type type) {
+    public Phone(Long id, String phoneDescription, String phoneNumber, Type type) {
         this.id = id;
-        this.user = user;
         this.phoneDescription = phoneDescription;
         this.phoneNumber = phoneNumber;
         this.type = type;
@@ -27,14 +25,6 @@ public class Phone {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public String getPhoneDescription() {
@@ -67,7 +57,6 @@ public class Phone {
         if (o == null || getClass() != o.getClass()) return false;
         Phone phone = (Phone) o;
         return Objects.equals(id, phone.id) &&
-                Objects.equals(user, phone.user) &&
                 Objects.equals(phoneDescription, phone.phoneDescription) &&
                 Objects.equals(phoneNumber, phone.phoneNumber) &&
                 Objects.equals(type, phone.type);
@@ -75,14 +64,13 @@ public class Phone {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, phoneDescription, phoneNumber, type);
+        return Objects.hash(id, phoneDescription, phoneNumber, type);
     }
 
     @Override
     public String toString() {
         return "Phone{" +
                 "id=" + id +
-                ", user=" + user +
                 ", phoneDescription='" + phoneDescription + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", type=" + type +

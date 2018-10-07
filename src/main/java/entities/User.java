@@ -11,6 +11,8 @@ public class User {
     private String lastName;
     private String nickName;
     private String password;
+    private String imagePath;
+    private boolean active;
     private Role role;
     private List<Address> addressList;
     private Date birthdate;
@@ -18,17 +20,31 @@ public class User {
     private List<Email> emailList;
     private List<Note> noteList;
     private List<Phone> phoneList;
-    private List<ContactGroup> contactGroupList;
 
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String nickName, String password, Role role, List<Address> addressList, Date birthdate, Company company, List<Email> emailList, List<Note> noteList, List<Phone> phoneList, List<ContactGroup> contactGroupList) {
+    public User(Long id, String firstName, String lastName, String nickName, String password, String imagePath, boolean active, Role role, Date birthdate, Company company) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.nickName = nickName;
         this.password = password;
+        this.imagePath = imagePath;
+        this.active = active;
+        this.role = role;
+        this.birthdate = birthdate;
+        this.company = company;
+    }
+
+    public User(Long id, String firstName, String lastName, String nickName, String password, String imagePath, boolean active, Role role, List<Address> addressList, Date birthdate, Company company, List<Email> emailList, List<Note> noteList, List<Phone> phoneList) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nickName = nickName;
+        this.password = password;
+        this.imagePath = imagePath;
+        this.active = active;
         this.role = role;
         this.addressList = addressList;
         this.birthdate = birthdate;
@@ -36,7 +52,6 @@ public class User {
         this.emailList = emailList;
         this.noteList = noteList;
         this.phoneList = phoneList;
-        this.contactGroupList = contactGroupList;
     }
 
     public Long getId() {
@@ -77,6 +92,22 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     public Role getRole() {
@@ -135,37 +166,30 @@ public class User {
         this.phoneList = phoneList;
     }
 
-    public List<ContactGroup> getContactGroupList() {
-        return contactGroupList;
-    }
-
-    public void setContactGroupList(List<ContactGroup> contactGroupList) {
-        this.contactGroupList = contactGroupList;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(id, user.id) &&
+        return active == user.active &&
+                Objects.equals(id, user.id) &&
                 Objects.equals(firstName, user.firstName) &&
                 Objects.equals(lastName, user.lastName) &&
                 Objects.equals(nickName, user.nickName) &&
                 Objects.equals(password, user.password) &&
+                Objects.equals(imagePath, user.imagePath) &&
                 Objects.equals(role, user.role) &&
                 Objects.equals(addressList, user.addressList) &&
                 Objects.equals(birthdate, user.birthdate) &&
                 Objects.equals(company, user.company) &&
                 Objects.equals(emailList, user.emailList) &&
                 Objects.equals(noteList, user.noteList) &&
-                Objects.equals(phoneList, user.phoneList) &&
-                Objects.equals(contactGroupList, user.contactGroupList);
+                Objects.equals(phoneList, user.phoneList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, nickName, password, role, addressList, birthdate, company, emailList, noteList, phoneList, contactGroupList);
+        return Objects.hash(id, firstName, lastName, nickName, password, imagePath, active, role, addressList, birthdate, company, emailList, noteList, phoneList);
     }
 
     @Override
@@ -176,6 +200,8 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", nickName='" + nickName + '\'' +
                 ", password='" + password + '\'' +
+                ", imagePath='" + imagePath + '\'' +
+                ", active=" + active +
                 ", role=" + role +
                 ", addressList=" + addressList +
                 ", birthdate=" + birthdate +
@@ -183,7 +209,6 @@ public class User {
                 ", emailList=" + emailList +
                 ", noteList=" + noteList +
                 ", phoneList=" + phoneList +
-                ", contactGroupList=" + contactGroupList +
                 '}';
     }
 }
