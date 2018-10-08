@@ -28,7 +28,7 @@ public class NoteRepositoryImpl implements NoteRepository {
 
             statement.setLong(1, user.getId());
 
-            rs = statement.executeQuery(query);
+            rs = statement.executeQuery();
 
             while (rs.next()) {
                 Note note = new Note(rs.getLong("id"), rs.getString("note_description"),

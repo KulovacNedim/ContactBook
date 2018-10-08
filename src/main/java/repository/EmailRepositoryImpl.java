@@ -29,7 +29,7 @@ public class EmailRepositoryImpl implements EmailRepository {
 
             statement.setLong(1, user.getId());
 
-            rs = statement.executeQuery(query);
+            rs = statement.executeQuery();
 
             while (rs.next()) {
                 Email email = new Email(rs.getLong("id"), rs.getString("email_description"),

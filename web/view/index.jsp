@@ -38,8 +38,8 @@
 				<form  action="login" method="post">
 
 				    <div class="form-group">
-				      <label for="email">Enter e-mail:</label>
-				      <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" required autofocus>
+				      <label for="nickname">Enter nickname:</label>
+				      <input type="text" name="nickname" class="form-control" id="nickname" placeholder="Enter nickname" required autofocus>
 				    </div>
 
 				    <div class="form-group">
