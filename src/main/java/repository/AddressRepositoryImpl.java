@@ -26,7 +26,7 @@ public class AddressRepositoryImpl implements AddressRepository {
 
             statement.setLong(1, user.getId());
 
-            rs = statement.executeQuery(query);
+            rs = statement.executeQuery();
 
             while (rs.next()) {
                 Address address = new Address(rs.getLong("id"), rs.getString("address_description"),

@@ -29,7 +29,7 @@ public class PhoneRepositoryImpl implements PhoneRepository {
 
             statement.setLong(1, user.getId());
 
-            rs = statement.executeQuery(query);
+            rs = statement.executeQuery();
 
             while (rs.next()) {
                 Phone phone = new Phone(rs.getLong("id"), rs.getString("phone_description"),
