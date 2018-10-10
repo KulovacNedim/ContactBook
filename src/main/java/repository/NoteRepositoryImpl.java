@@ -32,7 +32,7 @@ public class NoteRepositoryImpl implements NoteRepository {
 
             while (rs.next()) {
                 Note note = new Note(rs.getLong("id"), rs.getString("note_description"),
-                        rs.getString("note"), rs.getBoolean("archived"));
+                        rs.getString("note"), rs.getDate("date"), rs.getBoolean("archived"));
                 noteList.add(note);
             }
         }

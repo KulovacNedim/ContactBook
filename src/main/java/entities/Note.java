@@ -1,5 +1,6 @@
 package main.java.entities;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class Note {
@@ -7,15 +8,17 @@ public class Note {
     private Long id;
     private String noteDescription;
     private String note;
+    private Date date;
     private boolean archived;
 
     public Note() {
     }
 
-    public Note(Long id, String noteDescription, String note, boolean archived) {
+    public Note(Long id, String noteDescription, String note, Date date, boolean archived) {
         this.id = id;
         this.noteDescription = noteDescription;
         this.note = note;
+        this.date = date;
         this.archived = archived;
     }
 
@@ -47,6 +50,14 @@ public class Note {
         return archived;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public void setArchived(boolean archived) {
         this.archived = archived;
     }
@@ -59,12 +70,13 @@ public class Note {
         return archived == note1.archived &&
                 Objects.equals(id, note1.id) &&
                 Objects.equals(noteDescription, note1.noteDescription) &&
-                Objects.equals(note, note1.note);
+                Objects.equals(note, note1.note) &&
+                Objects.equals(date, note1.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, noteDescription, note, archived);
+        return Objects.hash(id, noteDescription, note, date, archived);
     }
 
     @Override
@@ -73,6 +85,7 @@ public class Note {
                 "id=" + id +
                 ", noteDescription='" + noteDescription + '\'' +
                 ", note='" + note + '\'' +
+                ", date=" + date +
                 ", archived=" + archived +
                 '}';
     }
