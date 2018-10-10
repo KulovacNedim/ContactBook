@@ -1,18 +1,241 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: User
-  Date: 08.10.2018.
-  Time: 13:55
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
-<head>
-    <title>Title</title>
+	<head>
+		<%@ include file="headContent.jsp"%>
+	</head>
+	<body>
+		<div class="container-fluid">
+			<nav class=" navbar-inverse .navbar-fixed-top">
+			  <div class="container-fluid">
+			    <div class="navbar-header">
+			      <a class="navbar-brand" href="#">Contact Book App</a>
+			    </div>
+			    <ul class="nav navbar-nav">
+			      <li class="active"><a href="#">My profile</a></li>
+			      <li><a href="#">About</a></li>
+			      <li><a href="#">Admin panel</a></li>
+			    </ul>
+			    <ul class="nav navbar-nav navbar-right">
+			      <li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+			    </ul>
+			  </div>
+			</nav>
+			<div class="row">
+				<div class="col-sm-9">
+					<h2>Manage contacts</h2>
+				</div>
+				<div class="col-sm-3">
+					<button type="button" class="btn btn-primary btn-block btn-top-margine">Add contact</button>
+				</div>
+			</div>
+			<div class="row rowMain">
+				<div class="col-sm-4 col-md-3 contact-list" style="">
+					<div class="row">
+						<div class="input-group">
+					    <input type="text" class="form-control input-sm" placeholder="Search">
+					    <div class="input-group-btn">
+					      <button class="btn btn-default input-sm" type="submit">
+					        <i class="glyphicon glyphicon-search"></i>
+					      </button>
+					    </div>
+					  </div>
+					</div>
+					<div class="row">
+						<div class="dropdown ">
+						    <button class="btn btn-block dropdown-toggle btn-success" type="button" id="menu1" data-toggle="dropdown">Filter contact group<span class="caret"></span>
+						    </button>
+						    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+						      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Group1</a></li>
+						      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Group2</a></li>
+						      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Group3</a></li>
+						    </ul>
+						  </div>
+					</div>
+					<c:forEach items="${myContacts}" var="contact" >
+					<div class="row contact-card">
+						<a href="showContact?contactId=${contact.id}">
+							<div class="hidden-xs col-xs-3 col-sm-4 col-md-5 col-lg-4" >
+								<img src="images/users/${contact.imagePath}" class="img-circle img-responsive" alt="" >
+							</div>
+							<div class="col-xs-7 col-sm-6 col-md-5 col-lg-6">
+								<p class="blue-heading">${contact.lastName} ${contact.firstName}</p>
+								<p class="hidden-sm hidden-xs hidden-md fine-print">${contact.nickName}</p>
+							</div>
+						</a>
+						<a href="#">
+							<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+					          <span class="glyphicon glyphicon-trash float-right"></span>
+					      	</div>
+						</a>
+					</div>
+	                </c:forEach>
+				</div>
+				<div class="col-sm-8 col-md-9">
+					<div class="row" style="border-bottom: 2px solid #5CB85C; margin:10px 0 10px 0;">
+						<p>Contact detail</p>
+					</div>
+					<div class="row">
+						<div class="hidden-xs hidden-sm col-xs-0 col-sm-1 col-md-5 col-lg-4">
+							<img src="https://www.unilad.co.uk/wp-content/uploads/2016/10/54645UNILAD-imageoptim-Leonardo-DiCaprio.jpg" class="img-circle img-responsive" alt="" >
+						</div>
+						<div class="col-xs-9 col-sm-9 col-md-5 col-lg-6">
+							<form class="form-horizontal" action="/action_page.php">
+							    <div class="form-group">
+							      <label class="control-label col-sm-2" for="full_name">Full name:</label>
+							      <div class="col-sm-10">
+							      	<p class="form-control-static">${contactToShow.lastName} ${contactToShow.firstName}</p>
+							      </div>
+							    </div>
+							    <div class="form-group">
+								    <label class="control-label col-sm-2" for="pwd">Nickname:</label>
+								    <div class="col-sm-10">          
+								       <p class="form-control-static">${contactToShow.nickName}</p>
+								    </div>
+							    </div>
+							    <div class="form-group">
+								    <label class="control-label col-sm-2" for="pwd">Birthdate:</label>
+								     <div class="col-sm-10">          
+								       <p class="form-control-static">${contactToShow.birthdate}</p>
+							     	</div>
+								</div>
+							    <div class="form-group">
+							      	<label class="control-label col-sm-2" for="pwd">Company:</label>
+							      	<div class="col-sm-10">          
+							        	<p class="form-control-static">${contactToShow.company.companyName}</p>
+							      	</div>
+								</div>
+							    <div class="form-group">
+							      	<label class="control-label col-sm-2" for="pwd">Role:</label>
+							      	<div class="col-sm-10">          
+							        	<p class="form-control-static">${contactToShow.role.roleName}</p>
+							      	</div>
+							    </div>		    
+							</form>
+						</div>
+						<div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+							<button type="button" class="btn btn-primary btn-block">Edit</button>
+						</div>
+					</div>
+					<div class="row tabs">
+						<ul class="nav nav-tabs">
+							<li class="active"><a data-toggle="tab" href="#emails">e-mail list</a></li>
+						    <li><a data-toggle="tab" href="#phones">Phone list</a></li>
+						    <li><a data-toggle="tab" href="#addresses">Home address list</a></li>
+						    <li><a data-toggle="tab" href="#notes">My notes</a></li>
+						</ul>
+						<br>
+						<div class="tab-content  contact-tabs">
+						    <div id="emails" class="tab-pane fade in active">
+							    <table class="table table-hover">
+							     	<thead>
+									    <tr>
+									        <th>email</th>
+									        <th>description</th>
+									        <th>type</th>
+									    </tr>
+							    	</thead>
 
-    radi
-</head>
-<body>
+									<tbody>
+								    <c:forEach items="${contactToShow.emailList}" var="email">
+								    	<tr>
+									        <td>${email.email}</td>
+									        <td>${email.emailDescription}</td>
+									        <td>${user.type.typeName}</td>
+								      	</tr>
+									</c:forEach>
+									</tbody>
+								</table>
+								<div class="${contactToShow.emailList.size()==0 ? 'show' : 'hidden'}"">
+								  	<p>Nothing to show</p>
+								</div>
+						    </div>
+						    <div id="phones" class="tab-pane fade">
+							     <table class="table table-hover">
+							     	<thead>
+									    <tr>
+									        <th>phone number</th>
+									        <th>description</th>
+									        <th>type</th>
+									    </tr>
+							    	</thead>
 
-</body>
+									<tbody>
+								    <c:forEach items="${contactToShow.phoneList}" var="phone">
+								    	<tr>
+									        <td>${phone.phoneNumber}</td>
+									        <td>${phone.phoneDescription}</td>
+									        <td>${phone.type.typeName}</td>
+								      	</tr>
+									</c:forEach>
+									</tbody>
+								</table>
+								<div class="${contactToShow.phoneList.size()==0 ? 'show' : 'hidden'}"">
+								  	<p>Nothing to show</p>
+								</div>
+						    </div>
+						    <div id="addresses" class="tab-pane fade">
+							     <table class="table table-hover">
+							     	<thead>
+									    <tr>
+									        <th>description</th>
+									        <th>state</th>
+									        <th>city</th>
+									        <th>street</th>
+									        <th>zip</th>
+									        <th>type</th>
+									    </tr>
+							    	</thead>
+
+									<tbody>
+								    <c:forEach items="${contactToShow.addressList}" var="address">
+								    	<tr>
+									        <td>${address.addressDescription}</td>
+									        <td>${address.state}</td>
+									        <td>${address.city}</td>
+									        <td>${address.street}</td>
+									        <td>${address.zipCode}</td>
+									        <td>${address.type.typeName}</td>
+								      	</tr>
+									</c:forEach>
+									</tbody>
+								</table>
+								<div class="${contactToShow.addressList.size()==0 ? 'show' : 'hidden'}"">
+								  	<p>Nothing to show</p>
+								</div>
+						    </div>
+						    <div id="notes" class="tab-pane fade">
+							    <table class="table table-hover">
+							     	<thead>
+									    <tr>
+									    	<th>note</th>
+									        <th>description</th>
+									        <th>date</th>
+									        <th>archived</th>
+									    </tr>
+							    	</thead>
+
+									<tbody>
+								    <c:forEach items="${contactToShow.noteList}" var="note">
+								    	<tr>
+								    		<td>${note.note}</td>
+									        <td>${note.noteDescription}</td>
+									        <td>${note.date}</td>
+									        <td>${note.archived == true ? 'Yes' : 'No'}</td>
+								      	</tr>
+									</c:forEach>
+									</tbody>
+								</table>
+								<div class="${contactToShow.noteList.size()==0 ? 'show' : 'hidden'}"">
+								  	<p>Nothing to show</p>
+								</div>
+						    </div>
+						  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>

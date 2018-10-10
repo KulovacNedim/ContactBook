@@ -20,7 +20,6 @@ public class PasswordHash {
         } catch (NoSuchAlgorithmException e) {
             System.err.println("No such algorithm Exception.");
         }
-        System.out.println(hashValue);
         return hashValue;
     }
 

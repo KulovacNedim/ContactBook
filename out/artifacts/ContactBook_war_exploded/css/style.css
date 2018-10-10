@@ -1,19 +1,70 @@
-#container {
-	width: 80%;
-	margin: 60px auto 0 auto;
-	position: relative;
-	border-top: 5px solid #FF9800;
-	border-bottom: 5px solid #FF9800;
+.container-fluid {
+  height: 100%;
 }
 
-.left-box {
-	float:left;
+.btn-top-margine {
+	margin-top: 5px;
 }
 
-.fight-box {
-	float:right;
+.contact-list {
+	max-height:80vh;
+	overflow: auto;
+	border-right: 2px solid #5CB85C;
 }
 
-#message {
-    display:none;
+.contact-card {
+	margin-top: 5px;
+	overflow: hidden;
+	border-bottom: 1px dashed #6C757D;
+}
+
+@media  (max-height: 600px) {
+	.contact-list {
+		max-height:40vh;
+	}
+}
+
+.blue-heading {
+	color: #007BFF;
+	font-size: 15px;
+	font-weight: bold;
+	padding-top: 5px;
+}
+
+div a:hover {
+	text-decoration: none;
+}
+
+.fine-print {
+	color:#337AB7;
+	font-size: 12px;
+}
+
+form p {
+	border:1px solid #CCCCCC;
+	border-radius: 5px;
+	padding-left: 10px;
+	margin-left: 20px;
+}
+
+.tabs {
+	margin: 5px;
+}
+
+.contact-tabs {
+	max-height: 40vh;
+	overflow: auto;
+}
+
+.float-right {
+	float: right;
+	padding-top: 5px;
+}
+
+.dropdown button, .input-group {
+	margin: 5px 0 2px 0;
+}
+
+.dropdown-menu {
+	width: 100%;
 }
