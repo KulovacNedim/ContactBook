@@ -23,4 +23,6 @@ public interface UserRepository {
     public List<User> getAllUsersByActivity(boolean activity) throws SQLException;
 
     public List<User> getMyContactGroupList(User activeUser, ContactGroup contactGroup) throws SQLException;
+
+    public List<User> getUserListMatchingSearch(String search) throws SQLException;
 }

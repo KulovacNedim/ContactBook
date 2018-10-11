@@ -14,7 +14,7 @@
 			      <a class="navbar-brand" href="#">Contact Book App</a>
 			    </div>
 			    <ul class="nav navbar-nav">
-			      <li class="active"><a href="#">My profile</a></li>
+			      <li class="active"><a href="showContact">My profile (${loggedInUser.firstName.toUpperCase()} ${loggedInUser.lastName.toUpperCase()})</a></li>
 			      <li><a href="#">About</a></li>
 			      <li><a href="#">Admin panel</a></li>
 			    </ul>
@@ -34,29 +34,38 @@
 			<div class="row rowMain">
 				<div class="col-sm-4 col-md-3 contact-list" style="">
 					<div class="row">
-						<div class="input-group">
-					    <input type="text" class="form-control input-sm" placeholder="Search">
-					    <div class="input-group-btn">
-					      <button class="btn btn-default input-sm" type="submit">
-					        <i class="glyphicon glyphicon-search"></i>
-					      </button>
-					    </div>
-					  </div>
+						<form action="showContact" method="post" autocomplete="off">
+							<div class="input-group">
+						    <input type="text" class="form-control input-sm" placeholder="Search" name="search" value="${searchPlaceholder}" >
+						    <div class="input-group-btn">
+						      <button class="btn btn-default input-sm" type="submit">
+						        <i class="glyphicon glyphicon-search"></i>
+						      </button>
+						    </div>
+						  </div>
+						</form>
 					</div>
 					<div class="row">
-						<div class="dropdown ">
-						    <button class="btn btn-block dropdown-toggle btn-success" type="button" id="menu1" data-toggle="dropdown">Filter contact group<span class="caret"></span>
-						    </button>
-						    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-						      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Group1</a></li>
-						      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Group2</a></li>
-						      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Group3</a></li>
-						    </ul>
-						  </div>
+						<div class="col-sm-6">
+							<div class="dropdown ">
+							    <button class="btn btn-block dropdown-toggle btn-success" type="button" id="menu1" data-toggle="dropdown">${contactGroupName} <span class="caret"></span>
+							    </button>
+							    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+								    <c:forEach items="${contactGroupList}" var="contactGroup" >
+								    <li role="presentation"><a role="menuitem" tabindex="-1" href="showContact?groupId=${contactGroup.id}&groupName=${contactGroup.contactGroup}">${contactGroup.contactGroup}</a></li>
+								    </c:forEach>
+							    </ul>
+							</div>
+						</div>
+						<div class="col-sm-6">
+							<a href="showContact">
+								<button type="button" class="btn btn-primary btn-block btn-top-margine">Reset all parameters</button>
+							</a>
+						</div>
 					</div>
 					<c:forEach items="${myContacts}" var="contact" >
 					<div class="row contact-card">
-						<a href="showContact?contactId=${contact.id}">
+						<a href="showContact?contactId=${contact.id}&search=${searchPlaceholder}&groupId=${groupId}&groupName=${contactGroupName}">
 							<div class="hidden-xs col-xs-3 col-sm-4 col-md-5 col-lg-4" >
 								<img src="images/users/${contact.imagePath}" class="img-circle img-responsive" alt="" >
 							</div>
@@ -79,7 +88,7 @@
 					</div>
 					<div class="row">
 						<div class="hidden-xs hidden-sm col-xs-0 col-sm-1 col-md-5 col-lg-4">
-							<img src="https://www.unilad.co.uk/wp-content/uploads/2016/10/54645UNILAD-imageoptim-Leonardo-DiCaprio.jpg" class="img-circle img-responsive" alt="" >
+							<img src="images/users/${contactToShow.imagePath}" class="img-circle img-responsive" alt="" >
 						</div>
 						<div class="col-xs-9 col-sm-9 col-md-5 col-lg-6">
 							<form class="form-horizontal" action="/action_page.php">

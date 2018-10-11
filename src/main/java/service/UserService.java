@@ -1,5 +1,6 @@
 package main.java.service;
 
+import main.java.entities.ContactGroup;
 import main.java.entities.User;
 import main.java.repository.UserRepositoryImpl;
 
@@ -20,5 +21,13 @@ public class UserService {
 
     public User getUserById(Long id) throws SQLException {
         return userRepo.getUserById(id);
+    }
+
+    public List<User> getMyContactGroupList(User activeUser, ContactGroup contactGroup) throws SQLException {
+        return userRepo.getMyContactGroupList(activeUser, contactGroup);
+    }
+
+    public List<User> getUserListMatchingSearch(String search) throws SQLException {
+        return userRepo.getUserListMatchingSearch(search);
     }
 }
