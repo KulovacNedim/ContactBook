@@ -230,15 +230,37 @@ public class UserRepositoryImpl implements UserRepository {
             rs = statement.executeQuery();
 
             while (rs.next()) {
-                refUser = new User(rs.getLong("id"), rs.getString("first_name"), rs.getString("last_name"),
-                        rs.getString("nickname"), rs.getString("password"), rs.getString("image_path"),
-                        rs.getBoolean("active"), roleRepo.getRoleById(rs.getLong("role_id")),
-                        rs.getDate("birthdate"), companyRepo.getCompanyById(rs.getLong("company_id")));
+                refUser = getUserById(rs.getLong("ref_user_id"));
 
                 setAttributesToUser(refUser);
                 refUserList.add(refUser);
             }
         }
         return refUserList;
+    }
+
+    public List<User> getUserListMatchingSearch(String search) throws SQLException {
+
+        List<User> serchResult = new ArrayList<>();
+        User found = null;
+
+        String query = "SELECT * FROM users WHERE CONCAT(first_name, ' ', last_name) LIKE ?";
+
+        ResultSet rs = null;
+
+        try (PreparedStatement statement = connection.prepareStatement(query);) {
+
+            statement.setString(1, "%" + search + "%");
+
+            rs = statement.executeQuery();
+
+            while (rs.next()) {
+                found = getUserById(rs.getLong("id"));
+
+                setAttributesToUser(found);
+                serchResult.add(found);
+            }
+        }
+        return serchResult;
     }
 }

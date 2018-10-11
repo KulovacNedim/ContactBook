@@ -47,7 +47,7 @@ public class ContactGroup {
 
     @Override
     public String toString() {
-        return "ContactGroup{" +
+        return "ContactGroupRepository{" +
                 "id=" + id +
                 ", contactGroup='" + contactGroup + '\'' +
                 '}';
