@@ -29,10 +29,11 @@ public class ShowContactServlet extends HttpServlet {
         UserService userService = new UserService();
         ContactGroupService contactGroupService = new ContactGroupService();
 
+        Long newGroupId = req.getParameter("newGroupId") == null ? -1 : Long.valueOf(req.getParameter("newGroupId")); // check if call is came from change-group dropdown
         Long contactId = req.getParameter("contactId") == null ? -1 : Long.valueOf(req.getParameter("contactId")); // check if call is came from contact list
         String search = req.getParameter("search") == null ? "" : req.getParameter("search"); // check if call came from search box
         Long groupId = req.getParameter("groupId") == null ? -1 : Long.valueOf((req.getParameter("groupId"))); // check if call came from contact group dropdown
-        String groupName = (req.getParameter("groupName") == null || req.getParameter("groupName").equals("Filter contact group")) ? "Filter contact group" : req.getParameter("groupName");
+        String groupName = (req.getParameter("groupName") == null || req.getParameter("groupName").equals("Add to contact group") || req.getParameter("groupName").equals("Filter contact group")) ? "Filter contact group" : req.getParameter("groupName");
 
         User loggedInUser = (User) req.getSession().getAttribute("loggedInUser");
 
@@ -45,8 +46,32 @@ public class ShowContactServlet extends HttpServlet {
 
         User contactToShow = null;
         List<User> myContacts = null;
+        ContactGroup refContactGroup = null;
 
-        if (contactId > 0) { // call came from contact list
+        if (newGroupId > 0) { // call came from change contact group dropmenu
+            try {
+                contactGroupService.setContactGroupForUser(loggedInUser, userService.getUserById(contactId), newGroupId);
+
+                groupId = newGroupId;
+
+                groupName = contactGroupService.getContactGroupById(groupId).getContactGroup();
+
+                contactToShow = userService.getUserById(contactId);
+
+                if (groupId > 0) { // keep parameters from dropdown menu
+                    myContacts =userService.getMyContactGroupList(loggedInUser, contactGroupService.getContactGroupById(groupId));
+
+                } else if (search.equals("")){ // keep parameters from search box
+                    myContacts =userService.getAllUsers();
+
+                }  else { // search box and dropdown menu parameters are defaults
+                    myContacts =userService.getUserListMatchingSearch(search);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+        } else if (contactId > 0) { // call came from contact list
             try {
                 if (groupId > 0) { // keep parameters from dropdown menu
                     myContacts =userService.getMyContactGroupList(loggedInUser, contactGroupService.getContactGroupById(groupId));
@@ -100,13 +125,19 @@ public class ShowContactServlet extends HttpServlet {
             contactToShow = (User)req.getSession().getAttribute("loggedInUser");
         }
 
+        try {
+            refContactGroup = contactGroupService.getContactGroupByUser(loggedInUser, contactToShow);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         req.setAttribute("groupId", groupId);
         req.setAttribute("searchPlaceholder", search);
         req.setAttribute("contactGroupList", contactGroupList);
         req.setAttribute("contactGroupName", groupName);
         req.setAttribute("myContacts", myContacts);
         req.setAttribute("contactToShow", contactToShow);
-
+        req.setAttribute("refContactGroup", refContactGroup);
 
         RequestDispatcher success = req.getRequestDispatcher("view/profile.jsp");
         success.forward(req, resp);

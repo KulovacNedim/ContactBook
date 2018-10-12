@@ -59,4 +59,46 @@ public class ContactGroupRepositoryImpl implements ContactGroupRepository {
         }
         return contactGroup;
     }
+
+    @Override
+    public ContactGroup getContactGroupByUser(User loggedInUser, User refUser) throws SQLException {
+
+        ContactGroup contactGroup = new ContactGroup();
+
+        String query = "SELECT * FROM contact_groups WHERE active_user_id = ? AND ref_user_id = ?";
+
+        ResultSet rs = null;
+
+        try (PreparedStatement statement = connection.prepareStatement(query);) {
+
+            statement.setLong(1, loggedInUser.getId());
+            statement.setLong(2, refUser.getId());
+
+            rs = statement.executeQuery();
+
+            if (rs.next()) {
+
+                contactGroup = getContactGroupById(rs.getLong("group_type"));
+                rs.close();
+            }
+        }
+        return contactGroup;
+    }
+
+    @Override
+    public void setContactGroupForUser(User loggedInUser, User refUser, Long contactGroupId) throws SQLException {
+
+        String query = "UPDATE contact_groups SET group_type= ? WHERE active_user_id = ? AND ref_user_id = ?";
+
+        try (
+                PreparedStatement statement = connection.prepareStatement(query);) {
+
+            statement.setLong(1, contactGroupId);
+            statement.setLong(2, loggedInUser.getId());
+            statement.setLong(3, refUser.getId());
+
+            statement.executeUpdate();
+
+        }
+    }
 }
