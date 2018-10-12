@@ -84,7 +84,7 @@
 				</div>
 				<div class="col-sm-8 col-md-9">
 					<div class="row" style="border-bottom: 2px solid #5CB85C; margin:10px 0 10px 0;">
-						<p>Contact detail</p>
+						<p>CONTACT DETAILS</p>
 					</div>
 					<div class="row">
 						<div class="hidden-xs hidden-sm col-xs-0 col-sm-1 col-md-5 col-lg-4">
@@ -125,6 +125,15 @@
 							</form>
 						</div>
 						<div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">
+							<div class="dropdown ">
+							    <button class="btn btn-block dropdown-toggle btn-primary" type="button" id="menu2" data-toggle="dropdown">${refContactGroup.contactGroup == null ? "Add to contact group" : refContactGroup.contactGroup} <span class="caret"></span>
+							    </button>
+							    <ul class="dropdown-menu" role="menu2" aria-labelledby="menu2">
+								    <c:forEach items="${contactGroupList}" var="contactGroup" >
+								    <li role="presentation"><a role="menuitem" tabindex="-1" href="showContact?contactId=${contactToShow.id}&search=${searchPlaceholder}&groupId=${groupId}&groupName=${contactGroupName}&newGroupId=${contactGroup.id}">${contactGroup.contactGroup}</a></li>
+								    </c:forEach>
+							    </ul>
+							</div>
 							<button type="button" class="btn btn-primary btn-block">Edit</button>
 						</div>
 					</div>
