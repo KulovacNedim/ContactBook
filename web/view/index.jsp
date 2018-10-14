@@ -57,8 +57,12 @@
 
 		    <div class="col-sm-6" style="">
 
-		    	<div class="alert alert-warning  ${existingEmail==null ? 'hidden' : 'show'}"">
-				    <strong>Warning!</strong> <c:out value = "${existingEmail}"/>
+		    	<div class="alert alert-warning  ${existingNickname==null ? 'hidden' : 'show'}"">
+				    <strong>Warning!</strong> <c:out value = "${existingNickname}"/>
+				</div>
+
+				<div class="alert alert-warning  ${inactiveUserReg==null ? 'hidden' : 'show'}"">
+				    <strong>Warning!</strong> <c:out value = "${inactiveUserReg}"/>
 				</div>
 
 		    	<br>
@@ -70,8 +74,8 @@
 		    	<form  action="register" method="post">
 
 				    <div class="form-group">
-				      <label for="email">Enter e-mail:</label>
-				      <input type="email" name="email" class="form-control" id="email" placeholder="Enter email" required>
+				      <label for="newNickname">Enter nickname:</label>
+				      <input type="newNickname" name="newNickname" class="form-control" id="newNickname" placeholder="Enter nickname" required>
 				    </div>
 
 				    <div class="form-group">
@@ -94,13 +98,19 @@
 		</div>
 
 		<script>
+			function functionHide() {
+			    document.getElementById("message").style.display = "none";
+			}
+		    window.onload = functionHide;
+
+
 			var myInput = document.getElementById("passReg");
 			var length = document.getElementById("length");
 
 			// When the user starts to type something inside the password field
 			myInput.onkeyup = function() {
 			  // Validate length
-			  if(myInput.value.length >= 8) {
+			  if(myInput.value.length >= 8 || myInput.value.length == 0) {
 			    document.getElementById("message").style.display = "none";
 			  } else {
 			    document.getElementById("message").style.display = "block";

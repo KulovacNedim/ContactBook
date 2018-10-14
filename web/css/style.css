@@ -40,6 +40,11 @@ div a:hover {
 	font-size: 12px;
 }
 
+.selected {
+	color: #FF9800;
+	font-weight: bold;
+} 
+
 form p {
 	border:1px solid #CCCCCC;
 	border-radius: 5px;

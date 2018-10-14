@@ -34,4 +34,8 @@ public class UserService {
     public List<User> getUserListMatchingSearch(String search, boolean active) throws SQLException {
         return userRepo.getUserListMatchingSearch(search, active);
     }
+
+    public void addUser(User user) throws SQLException {
+        userRepo.addUser(user);
+    }
 }
