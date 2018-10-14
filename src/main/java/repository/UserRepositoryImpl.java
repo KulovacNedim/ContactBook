@@ -33,7 +33,7 @@ public class UserRepositoryImpl implements UserRepository {
             statement.setBoolean(6, user.isActive());
             statement.setLong(7, user.getRole().getId());
             statement.setDate(8, (Date) user.getBirthdate());
-            statement.setLong(9, user.getCompany().getId());
+            statement.setLong(9, user.getCompany() == null ? 0 : user.getCompany().getId());
 
             statement.executeUpdate();
         }

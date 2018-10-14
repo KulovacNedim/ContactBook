@@ -84,8 +84,8 @@
 								<img src="images/users/${contact.imagePath}" class="img-circle img-responsive" alt="" >
 							</div>
 							<div class="col-xs-7 col-sm-6 col-md-5 col-lg-6">
-								<p class="blue-heading">${contact.lastName} ${contact.firstName}</p>
-								<p class="hidden-sm hidden-xs hidden-md fine-print">${contact.nickName}</p>
+								<p class="blue-heading ${contact.id == contactToShow.id ? 'selected' : ''}">${contact.lastName} ${contact.firstName}</p>
+								<p class="hidden-sm hidden-xs hidden-md fine-print ${contact.id == contactToShow.id ? 'selected' : ''}">${contact.nickName}</p>
 							</div>
 						</a>
 						<a href="#">
@@ -97,8 +97,8 @@
 	                </c:forEach>
 				</div>
 				<div class="col-sm-8 col-md-9">
-					<div class="row" style="border-bottom: 2px solid #5CB85C; margin:10px 0 10px 0;">
-						<p>CONTACT DETAILS</p>
+					<div class="row" style="border-bottom: 2px solid #FF9800; margin:10px 0 10px 0;">
+						<p class="selected">CONTACT DETAILS</p>
 					</div>
 					<div class="row">
 						<div class="hidden-xs hidden-sm col-xs-0 col-sm-1 col-md-5 col-lg-4">
