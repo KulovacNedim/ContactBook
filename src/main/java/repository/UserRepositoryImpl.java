@@ -213,7 +213,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public List<User> getMyContactGroupList(User activeUser, ContactGroup contactGroup) throws SQLException {
+    public List<User> getMyContactGroupList(User activeUser, ContactGroup contactGroup, boolean active) throws SQLException {
 
         List<User> refUserList = new ArrayList<>();
         User refUser = null;
@@ -232,25 +232,28 @@ public class UserRepositoryImpl implements UserRepository {
             while (rs.next()) {
                 refUser = getUserById(rs.getLong("ref_user_id"));
 
-                setAttributesToUser(refUser);
-                refUserList.add(refUser);
+                if (refUser.isActive() == active) {
+                    setAttributesToUser(refUser);
+                    refUserList.add(refUser);
+                }
             }
         }
         return refUserList;
     }
 
-    public List<User> getUserListMatchingSearch(String search) throws SQLException {
+    public List<User> getUserListMatchingSearch(String search, boolean active) throws SQLException {
 
         List<User> serchResult = new ArrayList<>();
         User found = null;
 
-        String query = "SELECT * FROM users WHERE CONCAT(first_name, ' ', last_name) LIKE ?";
+        String query = "SELECT * FROM users WHERE CONCAT(first_name, ' ', last_name) LIKE ? AND active = ?";
 
         ResultSet rs = null;
 
         try (PreparedStatement statement = connection.prepareStatement(query);) {
 
             statement.setString(1, "%" + search + "%");
+            statement.setBoolean(2, active);
 
             rs = statement.executeQuery();
 

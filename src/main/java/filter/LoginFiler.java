@@ -38,9 +38,17 @@ public class LoginFiler implements Filter {
 
         if (loggedInUser.getNickName() != null && loggedInUser.getNickName().equals(nickname) && loggedInUser.getPassword().equals(PasswordHash.getHash(password))) {
             //right credentials
-            request.getSession().setAttribute("loggedInUser", loggedInUser);
-            filterChain.doFilter(request, servletResponse);
 
+            if (loggedInUser.isActive()) {
+                request.getSession().setAttribute("loggedInUser", loggedInUser);
+                filterChain.doFilter(request, servletResponse);
+            } else {
+                // inactive user
+                String inactiveUser = "Your account is set to be inactive. Ask administrator for futher steps.";
+                request.setAttribute("inactiveUser", inactiveUser);
+                RequestDispatcher redirectToIndexPage = request.getRequestDispatcher("view/index.jsp");
+                redirectToIndexPage.forward(request, servletResponse);
+            }
         } else {
             // wrong credentials
             String wrongCredentials = "Wrong credentials.";

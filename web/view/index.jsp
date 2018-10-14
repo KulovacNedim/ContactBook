@@ -28,6 +28,9 @@
 		    	<div class="alert alert-warning ${wrongCredentials==null ? 'hidden' : 'show'}" >
 				    <strong>Warning!</strong> <c:out value = "${wrongCredentials}"/>
 				</div>
+				<div class="alert alert-warning ${inactiveUser==null ? 'hidden' : 'show'}" >
+				    <strong>Alert!</strong> <c:out value = "${inactiveUser}"/>
+				</div>
 		    	
 		    	<br>
 
