@@ -19,7 +19,7 @@ public class RegisterService {
         user.setNickName(newNickname);
         user.setPassword(hash.getHash(password));
         user.setActive(true);
-        user.setImagePath("defaultAvatar");
+        user.setImagePath("defaultAvatar.jpg");
         try {
             user.setRole(roleService.getRoleById((long) 2));
         } catch (SQLException e) {
@@ -35,6 +35,7 @@ public class RegisterService {
         String regSucc = "You are registered. Please edit your profile.";
         request.setAttribute("regSucc", regSucc);
 
+        request.setAttribute("flag", "editRegisteredContact");
         request.getSession().setAttribute("loggedInUser", user);
     }
 }

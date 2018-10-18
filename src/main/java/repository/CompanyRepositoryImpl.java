@@ -2,11 +2,11 @@ package main.java.repository;
 
 import main.java.dbConnectionMenager.ConnectionMenager;
 import main.java.entities.Company;
+import main.java.entities.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CompanyRepositoryImpl implements CompanyRepository {
 
@@ -36,5 +36,26 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 
             return company;
         }
+    }
+
+    @Override
+    public List<Company> getAllCompanies() throws SQLException {
+
+        List<Company> companies = new ArrayList<>();
+        Company company = null;
+
+        String query = "SELECT * FROM companies";
+
+        ResultSet rs = null;
+
+        try (Statement statement = connection.createStatement();) {
+
+            rs = statement.executeQuery(query);
+
+            while (rs.next()) {
+                companies.add(new Company(rs.getLong("id"), rs.getString("company")));
+            }
+        }
+        return companies;
     }
 }
