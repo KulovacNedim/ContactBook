@@ -143,3 +143,15 @@ form p {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+
+.margin-bottom-5px {
+	margin-bottom: 5px;
+}
+
+.padding-bottom-5px {
+	padding-bottom: 5px;
+}
+
+.border-bottom-orange {
+	border-bottom: 2px solid #FF9800;
+}

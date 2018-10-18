@@ -31,7 +31,7 @@ public class RegisterServlet extends HttpServlet {
 
         registerService.registerUser(newNickname, password, request);
 
-        RequestDispatcher success = request.getRequestDispatcher("view/profilesetup.jsp");
+        RequestDispatcher success = request.getRequestDispatcher("editProfile");
         success.forward(request, response);
 
     }
