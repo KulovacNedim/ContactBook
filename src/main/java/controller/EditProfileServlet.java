@@ -1,6 +1,6 @@
 package main.java.controller;
 
-import main.java.entities.User;
+import main.java.service.EditProfileService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -21,15 +21,12 @@ public class EditProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        if (req.getParameter("id") == null) {
-            if (req.getParameter("flag").equals("addNewContact")) {
-                // adding new contact
-            } else {
-                // editin registered contact - flag is "editRegisteredContact
-            }
-        } else {
-            // edit selected contact
-        }
+        EditProfileService eps= new EditProfileService();
+
+        Long id = req.getParameter("id") == null ? null : Long.valueOf(req.getParameter("id"));
+        String flag = (String) req.getAttribute("flag");
+
+        eps.setParameters(id, flag, req);
 
         RequestDispatcher success = req.getRequestDispatcher("view/editprofile.jsp");
         success.forward(req, resp);

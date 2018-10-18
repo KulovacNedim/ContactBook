@@ -9,224 +9,473 @@
 	<body>
 		<div class="container-fluid">
 			<%@ include file="navigationBar.jsp"%>
-		</div>
-		<div class="row margin-bottom-5px padding-bottom-5px border-bottom-orange">
-			<div class="col-sm-9">
-				<h2>Manage contacts</h2>
-			</div>
-			<div class="col-sm-3">
-				<button type="button" class="btn btn-primary btn-block btn-top-margine">Save changes</button>
-				<button type="button" class="btn btn-primary btn-block btn-top-margine">Cancel</button>
-			</div>
-		</div>
-		
-			<div class="row" style="border-bottom: 1px solid red;">
-				<div class="col-sm-2">
-					<img src="images/users/defaultAvatar.jpg" class="img-circle img-responsive" alt="" >
+			<div class="row margin-bottom-5px padding-bottom-5px border-bottom-orange">
+				<div class="col-sm-9">
+					<h2>Manage contacts</h2>
 				</div>
-				<div class="col-sm-5">
-					<form class="form-horizontal" action="/action_page.php">
-					    <div class="form-group">
-					      <label class="control-label col-sm-2" for="email">First Name:</label>
-					      <div class="col-sm-10">
-					        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-					      </div>
-					    </div>
-					    <div class="form-group">
-					      <label class="control-label col-sm-2" for="email">Last Name:</label>
-					      <div class="col-sm-10">
-					        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-					      </div>
-					    </div>
-					    <div class="form-group">
-					      <label class="control-label col-sm-2" for="pwd">Nickname:</label>
-					      <div class="col-sm-10">          
-					        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
-					      </div>
-					    </div>
-					    <div class="form-group">
-					      <label class="control-label col-sm-2" for="pwd">Role:</label>
-					      <div class="col-sm-10">          
-					        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
-					      </div>
-					    </div>
-					    <div class="form-group">
-					      <label class="radio-inline">
-						      <input onclick="setActivity('active')" type="radio" name="activity" id="activity" value="active" ${active.equals("active") ? "checked" : ""}>ACTIVE
-						      <span class="checkmark"></span>
-						    </label>
-						    <label class="radio-inline">
-						      <input onclick="setActivity('inactive')" type="radio" name="activity" id="activity" value="inactive" ${active.equals("inactive") ? "checked" : ""}>INACTIVE
-						      <span class="checkmark"></span>
-						    </label>
-					    </div>
-					    
-					  </form>
+				<div class="col-sm-3">
+					<button type="button" class="btn btn-primary btn-block btn-top-margine">Save changes</button>
+					<button type="button" class="btn btn-primary btn-block btn-top-margine">Cancel</button>
 				</div>
-				<div class="col-sm-5">
-					<form class="form-horizontal" action="/action_page.php">
-					    <div class="form-group">
-					      <label class="control-label col-sm-2" for="email">Birthdate:</label>
-					      <div class="col-sm-10">
-					        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-					      </div>
-					    </div>
-					    <div class="form-group">
-					      <label class="control-label col-sm-2" for="pwd">Company:</label>
-					      <div class="col-sm-6">
-							<div class="dropdown ">
-							    <button class="btn btn-block dropdown-toggle btn-success  btn-sm" type="button" id="menu1" data-toggle="dropdown">${ContactGroup.contactGroup == null ? "Filter Contact group" : contactGroupName} <span class="caret"></span>
-							    </button>
-							    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-								    <c:forEach items="${contactGroupList}" var="contactGroup" >
-								    <li role="presentation">
-								    	<a role="menuitem" tabindex="-1" href="showContact?groupId=${contactGroup.id}&groupName=${contactGroup.contactGroup}&activity=${active}" class="getLink">${contactGroup.contactGroup}</a></li>
-								    </c:forEach>
-							    </ul>
+			</div>
+			<div class="row margin-bottom-5px padding-bottom-5px">
+				<div class="col-sm-3 col-md-4 col-lg-2">
+					<img src="images/users/${contactToEdit.imagePath}" class="img-circle img-responsive" alt="" >
+					<form method="POST" action="#" enctype="multipart/form-data">
+						<div class="form-group">
+							<div class="input-group input-file" name="Fichier1">
+								<span class="input-group-btn">
+					        		<button class="btn btn-default btn-choose" type="button">Upload image</button>
+					    		</span>
+					    		<input type="text" class="form-control" placeholder='Choose a file...' />
 							</div>
-					    </div>
-					</div>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-block btn-primary pull-right">Submit</button>
+						</div>
+					</form>
+				</div>
+				<div class="col-sm-5 col-md-4 col-lg-5">
+					<form class="form-horizontal" action="/action_page.php">
 					    <div class="form-group">
-					      <label class="control-label col-sm-2" for="pwd">Password:</label>
-					      <div class="col-sm-10">          
-					        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+					      <label class="control-label col-sm-4" for="first_name">First Name:</label>
+					      <div class="col-sm-8">
+					        <input type="text" class="form-control" id="first_name" placeholder="${contactToEdit.firstName == null ? 'Enter first name' : ''}" value="${contactToEdit.firstName == null ? '' : contactToEdit.firstName}" name="first_name">
 					      </div>
 					    </div>
 					    <div class="form-group">
-					      <label class="control-label col-sm-2" for="pwd">Password confirm:</label>
-					      <div class="col-sm-10">          
-					        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+					      <label class="control-label col-sm-4" for="last_name">Last Name:</label>
+					      <div class="col-sm-8">
+					        <input type="text" class="form-control" id="last_name" placeholder="${contactToEdit.lastName == null ? 'Enter last name' : ''}" value="${contactToEdit.lastName == null ? '' : contactToEdit.lastName}" name="last_name">
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <label class="control-label col-sm-4" for="nick_name">Nickname:</label>
+					      <div class="col-sm-8">          
+					        <input type="text" class="form-control" id="nick_name" placeholder="${contactToEdit.nickName == null ? 'Enter nick name' : ''}" value="${contactToEdit.nickName == null ? '' : contactToEdit.nickName}" name="nick_name">
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <label class="control-label col-sm-4" for="company">Company:</label>
+					      <div class="col-sm-8">
+								<div class="dropdown ">
+								    <button class="btn btn-block dropdown-toggle btn-success btn-sm" type="button" id="role" data-toggle="dropdown">${contactToEdit.company == null ? "Chose company" : contactToEdit.company.companyName} <span class="caret"></span>
+								    </button>
+								    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+									    <c:forEach items="${companies}" var="company" >
+									    <li role="presentation">
+									    	<a role="menuitem" tabindex="-1" value="${company.id}" href="#">${company.companyName}</a></li>
+									    </c:forEach>
+								    </ul>
+								</div>
+					    	</div>
+						</div>
+					    <div class="form-group">
+					      <label class="control-label col-sm-4" for="birthdate">Birthdate:</label>
+					      <div class="col-sm-8">
+					        <input type="date" class="form-control" id="birthdate" value="${contactToEdit.lastName == null ? '' : contactToEdit.birthdate}" name="birthdate">
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <label class="control-label col-sm-4" for="role">Role:</label>
+					      	<div class="col-sm-8">
+								<div class="dropdown ">
+								    <button class="btn btn-block dropdown-toggle btn-success  btn-sm" type="button" id="role" data-toggle="dropdown">${contactToEdit.role == null ? "Chose role" : contactToEdit.role.roleName} <span class="caret"></span>
+								    </button>
+								    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+									    <c:forEach items="${roles}" var="role" >
+									    <li role="presentation">
+									    	<a role="menuitem" tabindex="-1" value="${role.id}" href="#">${role.roleName}</a></li>
+									    </c:forEach>
+								    </ul>
+								</div>
+					    	</div>
+						</div>
+					    <div class="form-group container1">
+					      <label class="control-label col-sm-4" for="active"></label>
+					      <div class="col-sm-8">
+					        <label class="radio-inline text-center">
+						      <input onclick="setActivity('active')" type="radio" name="activity" id="activity" value="active" ${contactToEdit.active = true ? "checked" : ""}>ACTIVE
+						      <span class="checkmark"></span>
+						    </label>
+						    <label class="radio-inline text-center">
+						      <input onclick="setActivity('inactive')" type="radio" name="activity" id="activity" value="inactive" ${contactToEdit.active = false ? "checked" : ""}>INACTIVE
+						      <span class="checkmark"></span>
+						    </label>
 					      </div>
 					    </div>
 					    <div class="form-group">        
-					      <div class="col-sm-offset-2 col-sm-10">
-					        <button type="submit" class="btn btn-default">Submit</button>
+					      <div class="col-sm-offset-4 col-sm-8">
+					        <button type="submit" class="btn btn-block btn-primary btn-sm">Submit</button>
+					      </div>
+					    </div>
+					</form>
+				</div>
+				<div class="col-sm-4 col-md-4 col-lg-5">
+					<form class="form-horizontal" action="/action_page.php">
+					    <div class="form-group">
+					      <label class="control-label col-sm-4" for="pwd">Password:</label>
+					      <div class="col-sm-8">          
+					        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <label class="control-label col-sm-4" for="pwd_new">Password confirm:</label>
+					      <div class="col-sm-8">          
+					        <input type="password" class="form-control" id="pwd_new" placeholder="Confirm password" name="pwd_new">
+					      </div>
+					    </div>
+					    <div class="form-group">        
+					      <div class="col-sm-offset-4 col-sm-8">
+					        <button type="submit" class="btn btn-block btn-primary btn-sm">Change password</button>
 					      </div>
 					    </div>
 					  </form>
 				</div>
 			</div>
-			<div class="row" style="border-bottom: 1px solid red;">
+			<div class="row">
 				<div class="row tabs">
-						<ul class="nav nav-tabs">
-							<li class="active"><a data-toggle="tab" href="#emails">e-mail list</a></li>
-						    <li><a data-toggle="tab" href="#phones">Phone list</a></li>
-						    <li><a data-toggle="tab" href="#addresses">Home address list</a></li>
-						    <li><a data-toggle="tab" href="#notes">My notes</a></li>
-						</ul>
-						<br>
-						<div class="tab-content  contact-tabs">
-						    <div id="emails" class="tab-pane fade in active">
-							    <table class="table table-hover">
-							     	<thead>
-									    <tr>
-									        <th>email</th>
-									        <th>description</th>
-									        <th>type</th>
-									    </tr>
-							    	</thead>
+					<ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" href="#emails">e-mail list</a></li>
+					    <li><a data-toggle="tab" href="#phones">Phone list</a></li>
+					    <li><a data-toggle="tab" href="#addresses">Home address list</a></li>
+					    <li><a data-toggle="tab" href="#notes">My notes</a></li>
+					</ul>
+					<br>
+					<div class="tab-content  contact-tabs">
+					    <div id="emails" class="tab-pane fade in active">
+						    <table class="table table-hover">
+						     	<thead>
+								    <tr>
+								        <th>email</th>
+								        <th>description</th>
+								        <th>type</th>
+								    </tr>
+						    	</thead>
+								<tbody>
+							    <c:forEach items="${contactToEdit.emailList}" var="email">
+							    	<tr>
+								        <td>${email.email}</td>
+								        <td>${email.emailDescription}</td>
+								        <td>${user.type.typeName}</td>
+							      	</tr>
+								</c:forEach>
+									<tr class="hiddenFields" id="addEmail">
+										<form class="form-horizontal" action="/action_page.php">
+									        <td>
+									        	<div class="form-group">
+											      <div class="col-sm-12">
+											        <input type="text" class="form-control" id="email" placeholder="Enter email" value="" name="email" autocomplete="off">
+											      </div>
+											    </div>
+											    <br>
+											    <div class="form-group">        
+											      <div class="col-sm-12">
+											        <button type="submit" class="btn btn-primary btn-block btn-sm">Submit</button>
+											      </div>
+											    </div>
+									        </td>
+									        <td>
+									        	<div class="form-group">
+											      <div class="col-sm-12">
+											        <input type="text" class="form-control" id="description" placeholder="Enter description" value="" name="description">
+											      </div>
+											    </div>
+									        </td>
+									        <td>
+									        	<div class="form-group">
+											      <div class="col-sm-12">
+														<div class="dropdown ">
+														    <button class="btn btn-block dropdown-toggle btn-success btn-sm" type="button" id="type" data-toggle="dropdown">Chose type <span class="caret"></span>
+														    </button>
+														    <ul class="dropdown-menu" role="menu" aria-labelledby="type">
+															    <c:forEach items="${types}" var="type" >
+															    <li role="presentation">
+															    	<a role="menuitem" tabindex="-1" value="${type.id}" href="#">${type.typeName}</a></li>
+															    </c:forEach>
+														    </ul>
+														</div>
+											    	</div>
+												</div>
+									        </td>
+										</form>
+							      	</tr>
+								</tbody>
+							</table>
+							<div class="col-sm-4 ${contactToEdit.emailList.size()==0 || contactToEdit.emailList==null  ? 'show' : 'hidden'}">
+							  	<p class="fine-print">Nothing to show</p>
+							  	<button class="btn btn-success btn-sm btn-block " onclick="addItem('addEmail')">Add email</button>
+							</div>
+					    </div>
+					    <div id="phones" class="tab-pane fade">
+						     <table class="table table-hover">
+						     	<thead>
+								    <tr>
+								        <th>phone number</th>
+								        <th>description</th>
+								        <th>type</th>
+								    </tr>
+						    	</thead>
+								<tbody>
+							    <c:forEach items="${contactToShow.phoneList}" var="phone">
+							    	<tr>
+								        <td>${phone.phoneNumber}</td>
+								        <td>${phone.phoneDescription}</td>
+								        <td>${phone.type.typeName}</td>
+							      	</tr>
+								</c:forEach>
+									<tr class="hiddenFields" id="addPhone">
+										<form class="form-horizontal" action="/action_page.php">
+									        <td>
+									        	<div class="form-group">
+											      <div class="col-sm-12">
+											        <input type="text" class="form-control" id="phone" placeholder="Enter phone number" value="" name="phone" autocomplete="off">
+											      </div>
+											    </div>
+											    <br>
+											    <div class="form-group">        
+											      <div class="col-sm-12">
+											        <button type="submit" class="btn btn-primary btn-block btn-sm">Submit</button>
+											      </div>
+											    </div>
+									        </td>
+									        <td>
+									        	<div class="form-group">
+											      <div class="col-sm-12">
+											        <input type="text" class="form-control" id="description" placeholder="Enter description" value="" name="description">
+											      </div>
+											    </div>
+									        </td>
+									        <td>
+									        	<div class="form-group">
+											      <div class="col-sm-12">
+														<div class="dropdown ">
+														    <button class="btn btn-block dropdown-toggle btn-success btn-sm" type="button" id="type" data-toggle="dropdown">Chose type <span class="caret"></span>
+														    </button>
+														    <ul class="dropdown-menu" role="menu" aria-labelledby="type">
+															    <c:forEach items="${types}" var="type" >
+															    <li role="presentation">
+															    	<a role="menuitem" tabindex="-1" value="${type.id}" href="#">${type.typeName}</a></li>
+															    </c:forEach>
+														    </ul>
+														</div>
+											    	</div>
+												</div>
+									        </td>
+										</form>
+							      	</tr>
+								</tbody>
+							</table>
+							<div class="col-sm-4 ${contactToEdit.phoneList.size()==0 || contactToEdit.phoneList==null  ? 'show' : 'hidden'}">
+							  	<p class="fine-print">Nothing to show</p>
+							  	<button class="btn btn-success btn-sm btn-block " onclick="addItem('addPhone')">Add phone</button>
+							</div>
+					    </div>
+					    <div id="addresses" class="tab-pane fade">
+						     <table class="table table-hover">
+						     	<thead>
+								    <tr>
+								        <th>description</th>
+								        <th>state</th>
+								        <th>city</th>
+								        <th>street</th>
+								        <th>zip</th>
+								        <th>type</th>
+								    </tr>
+						    	</thead>
 
-									<tbody>
-								    <c:forEach items="${contactToShow.emailList}" var="email">
-								    	<tr>
-									        <td>${email.email}</td>
-									        <td>${email.emailDescription}</td>
-									        <td>${user.type.typeName}</td>
-								      	</tr>
-									</c:forEach>
-										<tr>
-									        <td>form input</td>
-									        <td>form input</td>
-									        <td>form input</td>
-								      	</tr>
-									</tbody>
-								</table>
-								<div class="${contactToShow.emailList.size()==0 ? 'show' : 'hidden'}"">
-								  	<p>Nothing to show</p>
-								</div>
-						    </div>
-						    <div id="phones" class="tab-pane fade">
-							     <table class="table table-hover">
-							     	<thead>
-									    <tr>
-									        <th>phone number</th>
-									        <th>description</th>
-									        <th>type</th>
-									    </tr>
-							    	</thead>
+								<tbody>
+							    <c:forEach items="${contactToShow.addressList}" var="address">
+							    	<tr>
+								        <td>${address.addressDescription}</td>
+								        <td>${address.state}</td>
+								        <td>${address.city}</td>
+								        <td>${address.street}</td>
+								        <td>${address.zipCode}</td>
+								        <td>${address.type.typeName}</td>
+							      	</tr>
+								</c:forEach>
+									<tr class="hiddenFields" id="addAddress">
+										<form class="form-horizontal" action="/action_page.php">
+									        <td>
+									        	<div class="form-group">
+											      <div class="col-sm-12">
+											        <input type="text" class="form-control" id="phone" placeholder="Enter address description" value="" name="description" autocomplete="off">
+											      </div>
+											    </div>
+											    <br>
+											    <div class="form-group">        
+											      <div class="col-sm-12">
+											        <button type="submit" class="btn btn-primary btn-block btn-sm">Submit</button>
+											      </div>
+											    </div>
+									        </td>
+									        <td>
+									        	<div class="form-group">
+											      <div class="col-sm-12">
+											        <input type="text" class="form-control" id="state" placeholder="Enter state" value="" name="state">
+											      </div>
+											    </div>
+									        </td>
+									        <td>
+									        	<div class="form-group">
+											      <div class="col-sm-12">
+											        <input type="text" class="form-control" id="city" placeholder="Enter city" value="" name="city">
+											      </div>
+											    </div>
+									        </td>
+									        <td>
+									        	<div class="form-group">
+											      <div class="col-sm-12">
+											        <input type="text" class="form-control" id="street" placeholder="Enter street" value="" name="street">
+											      </div>
+											    </div>
+									        </td>
+									        <td>
+									        	<div class="form-group">
+											      <div class="col-sm-12">
+											        <input type="text" class="form-control" id="zipCode" placeholder="Enter ZIP code" value="" name="zipCode">
+											      </div>
+											    </div>
+									        </td>
+									        <td>
+									        	<div class="form-group">
+											      <div class="col-sm-12">
+														<div class="dropdown ">
+														    <button class="btn btn-block dropdown-toggle btn-success btn-sm" type="button" id="type" data-toggle="dropdown">Chose type <span class="caret"></span>
+														    </button>
+														    <ul class="dropdown-menu" role="menu" aria-labelledby="type">
+															    <c:forEach items="${types}" var="type" >
+															    <li role="presentation">
+															    	<a role="menuitem" tabindex="-1" value="${type.id}" href="#">${type.typeName}</a></li>
+															    </c:forEach>
+														    </ul>
+														</div>
+											    	</div>
+												</div>
+									        </td>
+										</form>
+							      	</tr>
+								</tbody>
+							</table>
+							<div class="col-sm-4 ${contactToEdit.addressList.size()==0 || contactToEdit.addressList==null  ? 'show' : 'hidden'}">
+							  	<p class="fine-print">Nothing to show</p>
+							  	<button class="btn btn-success btn-sm btn-block " onclick="addItem('addAddress')">Add address</button>
+							</div>
+					    </div>
+					    <div id="notes" class="tab-pane fade">
+						    <table class="table table-hover">
+						     	<thead>
+								    <tr>
+								    	<th>note</th>
+								        <th>description</th>
+								        <th>date</th>
+								        <th>archived</th>
+								    </tr>
+						    	</thead>
 
-									<tbody>
-								    <c:forEach items="${contactToShow.phoneList}" var="phone">
-								    	<tr>
-									        <td>${phone.phoneNumber}</td>
-									        <td>${phone.phoneDescription}</td>
-									        <td>${phone.type.typeName}</td>
+								<tbody>
+							    <c:forEach items="${contactToShow.noteList}" var="note">
+							    	<tr>
+							    		<td>${note.note}</td>
+								        <td>${note.noteDescription}</td>
+								        <td>${note.date}</td>
+								        <td>${note.archived == true ? 'Yes' : 'No'}</td>
+							      	</tr>
+								</c:forEach>
+									<tr class="hiddenFields" id="addNote">
+											<form class="form-horizontal" action="/action_page.php">
+										        <td>
+										        	<div class="form-group">
+												      <div class="col-sm-12">
+												        <input type="text" class="form-control" id="phone" placeholder="Enter note" value="" name="note" autocomplete="off">
+												      </div>
+												    </div>
+												    <br>
+												    <div class="form-group">        
+												      <div class="col-sm-12">
+												        <button type="submit" class="btn btn-primary btn-block btn-sm">Submit</button>
+												      </div>
+												    </div>
+										        </td>
+										        <td>
+										        	<div class="form-group">
+												      <div class="col-sm-12">
+												        <input type="text" class="form-control" id="description" placeholder="Enter description" value="" name="description">
+												      </div>
+												    </div>
+										        </td>
+										        <td>
+										        	<div class="form-group">
+												      <div class="col-sm-12">
+												        <input type="date" class="form-control" id="date" placeholder="Enter date" value="" name="date">
+												      </div>
+												    </div>
+										        </td>
+										        <td>
+										        	<div class="form-group">
+												      <div class="checkbox">
+													      <label><input type="checkbox" value="" name="archived"></label>
+													    </div>
+												    </div>
+										        </td>
+											</form>
 								      	</tr>
-									</c:forEach>
-									</tbody>
-								</table>
-								<div class="${contactToShow.phoneList.size()==0 ? 'show' : 'hidden'}"">
-								  	<p>Nothing to show</p>
-								</div>
-						    </div>
-						    <div id="addresses" class="tab-pane fade">
-							     <table class="table table-hover">
-							     	<thead>
-									    <tr>
-									        <th>description</th>
-									        <th>state</th>
-									        <th>city</th>
-									        <th>street</th>
-									        <th>zip</th>
-									        <th>type</th>
-									    </tr>
-							    	</thead>
-
-									<tbody>
-								    <c:forEach items="${contactToShow.addressList}" var="address">
-								    	<tr>
-									        <td>${address.addressDescription}</td>
-									        <td>${address.state}</td>
-									        <td>${address.city}</td>
-									        <td>${address.street}</td>
-									        <td>${address.zipCode}</td>
-									        <td>${address.type.typeName}</td>
-								      	</tr>
-									</c:forEach>
-									</tbody>
-								</table>
-								<div class="${contactToShow.addressList.size()==0 ? 'show' : 'hidden'}"">
-								  	<p>Nothing to show</p>
-								</div>
-						    </div>
-						    <div id="notes" class="tab-pane fade">
-							    <table class="table table-hover">
-							     	<thead>
-									    <tr>
-									    	<th>note</th>
-									        <th>description</th>
-									        <th>date</th>
-									        <th>archived</th>
-									    </tr>
-							    	</thead>
-
-									<tbody>
-								    <c:forEach items="${contactToShow.noteList}" var="note">
-								    	<tr>
-								    		<td>${note.note}</td>
-									        <td>${note.noteDescription}</td>
-									        <td>${note.date}</td>
-									        <td>${note.archived == true ? 'Yes' : 'No'}</td>
-								      	</tr>
-									</c:forEach>
-									</tbody>
-								</table>
-								<div class="${contactToShow.noteList.size()==0 ? 'show' : 'hidden'}"">
-								  	<p>Nothing to show</p>
-								</div>
-						    </div>
-						  </div>
+								</tbody>
+							</table>
+							<div class="col-sm-4 ${contactToEdit.noteList.size()==0 || contactToEdit.noteList==null  ? 'show' : 'hidden'}">
+							  	<p class="fine-print">Nothing to show</p>
+							  	<button class="btn btn-success btn-sm btn-block " onclick="addItem('addNote')">Add note</button>
+							</div>
+					    </div>
 					</div>
+				</div>
 			</div>
+		</div>
+			<script type="text/javascript">
+				function functionHide() {
+				    var x = document.getElementsByClassName("hiddenFields");
+				    var i;
+				    for (i = 0; i < x.length; i++) {
+				    	x[i].style.display = "none";
+				    }
+				}
+			    window.onload = functionHide;
+
+			    function addItem(tag) {
+				    var x = document.getElementById(tag).style.display = "table-row";
+				}
+
+
+				function bs_input_file() {
+					$(".input-file").before(
+						function() {
+							if ( ! $(this).prev().hasClass('input-ghost') ) {
+								var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
+								element.attr("name",$(this).attr("name"));
+								element.change(function(){
+									element.next(element).find('input').val((element.val()).split('\\').pop());
+								});
+								$(this).find("button.btn-choose").click(function(){
+									element.click();
+								});
+								$(this).find("button.btn-reset").click(function(){
+									element.val(null);
+									$(this).parents(".input-file").find('input').val('');
+								});
+								$(this).find('input').css("cursor","pointer");
+								$(this).find('input').mousedown(function() {
+									$(this).parents('.input-file').prev().click();
+									return false;
+								});
+								return element;
+							}
+						}
+					);
+				}
+				$(function() {
+					bs_input_file();
+				});
+			</script>
 	</body>
 </html>
