@@ -8,26 +8,25 @@ import java.sql.SQLException;
 
 public class RegisterService {
 
-    RoleService roleService = new RoleService();
-    UserService userService = new UserService();
-    PasswordHash hash = new PasswordHash();
+    private RoleService roleService = new RoleService();
+    private UserService userService = new UserService();
 
-    public void registerUser(String newNickname, String password, HttpServletRequest request) {
+    public void registerUser(String newNickname, String password, HttpServletRequest request) throws SQLException {
 
-        User user = new User();
+        User loggedInUser = new User();
 
-        user.setNickName(newNickname);
-        user.setPassword(hash.getHash(password));
-        user.setActive(true);
-        user.setImagePath("defaultAvatar.jpg");
+        loggedInUser.setNickName(newNickname);
+        loggedInUser.setPassword(PasswordHash.getHash(password));
+        loggedInUser.setActive(true);
+        loggedInUser.setImagePath("defaultAvatar.jpg");
         try {
-            user.setRole(roleService.getRoleById((long) 2));
+            loggedInUser.setRole(roleService.getRoleById((long) 2));
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         try {
-            userService.addUser(user);
+            userService.addUser(loggedInUser);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -35,7 +34,7 @@ public class RegisterService {
         String regSucc = "You are registered. Please edit your profile.";
         request.setAttribute("regSucc", regSucc);
 
-        request.setAttribute("flag", "editRegisteredContact");
-        request.getSession().setAttribute("loggedInUser", user);
+        loggedInUser = userService.getUserByNickname(loggedInUser.getNickName()); // fetch user id from db
+        request.getSession().setAttribute("loggedInUser", loggedInUser);
     }
 }

@@ -2,7 +2,7 @@ package main.java.entities;
 
 import java.util.Objects;
 
-public class Company {
+public class Company implements Cloneable {
 
     private Long id;
     private String companyName;
@@ -43,6 +43,11 @@ public class Company {
     @Override
     public int hashCode() {
         return Objects.hash(id, companyName);
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     @Override

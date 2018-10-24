@@ -2,7 +2,7 @@ package main.java.entities;
 
 import java.util.Objects;
 
-public class Role {
+public class Role implements Cloneable {
 
     private Long id;
     private String roleName;
@@ -43,6 +43,11 @@ public class Role {
     @Override
     public int hashCode() {
         return Objects.hash(id, roleName);
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     @Override

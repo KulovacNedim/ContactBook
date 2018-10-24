@@ -82,6 +82,10 @@
 				      <label for="password">Password:</label>
 				      <input type="password" name="password" class="form-control" id="passReg" placeholder="Enter password" title="Must contain at least 8 or more characters" pattern=".{8,}" required>
 				    </div>
+
+				    <div class="form-group hiddenElement">
+				        <input type="text" value="editRegContact" name="flag"/>
+				    </div>
 				    
 				    <button type="submit" class="btn btn-default">Register</button>
 

@@ -2,7 +2,7 @@ package main.java.entities;
 
 import java.util.Objects;
 
-public class Email {
+public class Email implements Cloneable {
 
     private Long id;
     private String emailDescription;
@@ -65,6 +65,18 @@ public class Email {
     @Override
     public int hashCode() {
         return Objects.hash(id, emailDescription, email, type);
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Email email = null;
+        try {
+            email = (Email) super.clone();
+        } catch (CloneNotSupportedException e) {
+            email = new Email(this.getId(), this.getEmailDescription(), this.getEmail(), this.getType());
+        }
+        email.type = (Type) this.type.clone();
+        return email;
     }
 
     @Override

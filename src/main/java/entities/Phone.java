@@ -2,7 +2,7 @@ package main.java.entities;
 
 import java.util.Objects;
 
-public class Phone {
+public class Phone implements Cloneable {
 
     private Long id;
     private String phoneDescription;
@@ -18,7 +18,6 @@ public class Phone {
         this.phoneNumber = phoneNumber;
         this.type = type;
     }
-
     public Long getId() {
         return id;
     }
@@ -65,6 +64,18 @@ public class Phone {
     @Override
     public int hashCode() {
         return Objects.hash(id, phoneDescription, phoneNumber, type);
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Phone phone = null;
+        try {
+            phone = (Phone) super.clone();
+        } catch (CloneNotSupportedException e) {
+            phone = new Phone(this.getId(), this.getPhoneDescription(), this.getPhoneNumber(), this.getType());
+        }
+        phone.type = (Type) this.type.clone();
+        return phone;
     }
 
     @Override

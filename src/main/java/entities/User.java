@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class User {
+public class User implements Cloneable{
 
     private Long id;
     private String firstName;
@@ -52,6 +52,16 @@ public class User {
         this.emailList = emailList;
         this.noteList = noteList;
         this.phoneList = phoneList;
+    }
+
+    public User(Long id, String firstName, String lastName, String nickName, String password, String imagePath, boolean active) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nickName = nickName;
+        this.password = password;
+        this.imagePath = imagePath;
+        this.active = active;
     }
 
     public Long getId() {
@@ -190,6 +200,46 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, nickName, password, imagePath, active, role, addressList, birthdate, company, emailList, noteList, phoneList);
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        User user = null;
+        try {
+            user = (User) super.clone();
+        } catch (CloneNotSupportedException e) {
+            user = new User(this.getId(), this.getFirstName(), this.getLastName(), this.getNickName(), this.getPassword(), this.getImagePath(), this.isActive());
+        }
+
+        if (user.role != null) {
+            user.setRole((Role) this.role.clone());
+        }
+
+        for (int i = 0; i < this.getAddressList().size(); i++) {
+            user.addressList.add((Address) this.getAddressList().get(i).clone());
+        }
+
+        if (user.birthdate != null) {
+            user.birthdate = (Date) this.birthdate.clone();
+        }
+
+        if (user.company != null) {
+            user.company = (Company) this.company.clone();
+        }
+
+        for (int i = 0; i < this.getEmailList().size(); i++) {
+            user.emailList.add((Email) this.getEmailList().get(i).clone());
+        }
+
+        for (int i = 0; i < this.getNoteList().size(); i++) {
+            user.noteList.add((Note) this.getNoteList().get(i).clone());
+        }
+
+        for (int i = 0; i < this.getPhoneList().size(); i++) {
+            user.phoneList.add((Phone) this.getPhoneList().get(i).clone());
+        }
+
+        return user;
     }
 
     @Override

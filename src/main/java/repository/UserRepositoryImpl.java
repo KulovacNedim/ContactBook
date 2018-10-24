@@ -44,7 +44,7 @@ public class UserRepositoryImpl implements UserRepository {
     public void updateUser(User user) throws SQLException {
 
         String query = "UPDATE users SET first_name = ?, last_name = ?, nickname = ?, password = ?, image_path = ?, " +
-                "active = ?, role_id = ?, birthdate = ?, company_id = ? WHERE id = ?";
+                "active = ?, role_id = ?, birthdate = ? WHERE id = ?";
 
         try (
                 PreparedStatement statement = connection.prepareStatement(query);) {
@@ -57,11 +57,11 @@ public class UserRepositoryImpl implements UserRepository {
             statement.setBoolean(6, user.isActive());
             statement.setLong(7, user.getRole().getId());
             statement.setDate(8, (Date) user.getBirthdate());
-            statement.setLong(9, user.getCompany().getId());
-            statement.setLong(10, user.getId());
+            statement.setLong(9, user.getId());
 
             statement.executeUpdate();
 
+            companyRepo.updateCompanyForUser(user);
             addressRepo.updateAddressListForUser(user);
             emailRepo.updateEmailListForUser(user);
             noteRepo.updateNoteListForUser(user);
