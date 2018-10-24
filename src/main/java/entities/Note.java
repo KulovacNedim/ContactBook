@@ -3,7 +3,7 @@ package main.java.entities;
 import java.util.Date;
 import java.util.Objects;
 
-public class Note {
+public class Note implements Cloneable {
 
     private Long id;
     private String noteDescription;
@@ -77,6 +77,18 @@ public class Note {
     @Override
     public int hashCode() {
         return Objects.hash(id, noteDescription, note, date, archived);
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Note note = null;
+        try {
+            note = (Note) super.clone();
+        } catch (CloneNotSupportedException e) {
+            note = new Note(this.getId(), this.getNoteDescription(), this.getNote(), this.getDate(), this.isArchived());
+        }
+        note.date = (Date) this.date.clone();
+        return note;
     }
 
     @Override

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet {
@@ -29,7 +30,11 @@ public class RegisterServlet extends HttpServlet {
         String newNickname = (String) request.getSession().getAttribute("newNickname");
         String password = (String) request.getSession().getAttribute("password");
 
-        registerService.registerUser(newNickname, password, request);
+        try {
+            registerService.registerUser(newNickname, password, request);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         RequestDispatcher success = request.getRequestDispatcher("editProfile");
         success.forward(request, response);

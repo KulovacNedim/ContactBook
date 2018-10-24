@@ -19,45 +19,41 @@
 				</div>
 			</div>
 			<div class="row margin-bottom-5px padding-bottom-5px">
-				<div class="col-sm-3 col-md-4 col-lg-2">
-					<img src="images/users/${contactToEdit.imagePath}" class="img-circle img-responsive" alt="" >
-					<form method="POST" action="#" enctype="multipart/form-data">
-						<div class="form-group">
-							<div class="input-group input-file" name="Fichier1">
-								<span class="input-group-btn">
-					        		<button class="btn btn-default btn-choose" type="button">Upload image</button>
-					    		</span>
-					    		<input type="text" class="form-control" placeholder='Choose a file...' />
-							</div>
+				<div class="col-sm-3 col-md-4 col-lg-3 form-group">
+					<img src="/images/users/${contactToEdit.imagePath}" class="img-circle img-responsive" alt="" >
+					 <form method="POST" action="editProfile" enctype="multipart/form-data" id="form">
+						<div class="form-group upload-btn-wrapper">
+						    <button class="btn btn-block btn-primary btn-sm">Upload image</button>
+						    <input type="file" name="file" id="file" />
 						</div>
-						<div class="form-group">
-							<button type="submit" class="btn btn-block btn-primary pull-right">Submit</button>
-						</div>
+					    <div class="form-group hiddenElement">
+					        <input type="text" value="changeImage" name="flag"/>
+					    </div>
 					</form>
 				</div>
-				<div class="col-sm-5 col-md-4 col-lg-5">
+				<div class="col-sm-5 col-md-4 col-lg-4">
 					<form class="form-horizontal" action="/action_page.php">
 					    <div class="form-group">
-					      <label class="control-label col-sm-4" for="first_name">First Name:</label>
-					      <div class="col-sm-8">
+					      <label class="control-label col-sm-3" for="first_name">First Name:</label>
+					      <div class="col-sm-9">
 					        <input type="text" class="form-control" id="first_name" placeholder="${contactToEdit.firstName == null ? 'Enter first name' : ''}" value="${contactToEdit.firstName == null ? '' : contactToEdit.firstName}" name="first_name">
 					      </div>
 					    </div>
 					    <div class="form-group">
-					      <label class="control-label col-sm-4" for="last_name">Last Name:</label>
-					      <div class="col-sm-8">
+					      <label class="control-label col-sm-3" for="last_name">Last Name:</label>
+					      <div class="col-sm-9">
 					        <input type="text" class="form-control" id="last_name" placeholder="${contactToEdit.lastName == null ? 'Enter last name' : ''}" value="${contactToEdit.lastName == null ? '' : contactToEdit.lastName}" name="last_name">
 					      </div>
 					    </div>
 					    <div class="form-group">
-					      <label class="control-label col-sm-4" for="nick_name">Nickname:</label>
-					      <div class="col-sm-8">          
+					      <label class="control-label col-sm-3" for="nick_name">Nickname:</label>
+					      <div class="col-sm-9">          
 					        <input type="text" class="form-control" id="nick_name" placeholder="${contactToEdit.nickName == null ? 'Enter nick name' : ''}" value="${contactToEdit.nickName == null ? '' : contactToEdit.nickName}" name="nick_name">
 					      </div>
 					    </div>
 					    <div class="form-group">
-					      <label class="control-label col-sm-4" for="company">Company:</label>
-					      <div class="col-sm-8">
+					      <label class="control-label col-sm-3" for="company">Company:</label>
+					      <div class="col-sm-9">
 								<div class="dropdown ">
 								    <button class="btn btn-block dropdown-toggle btn-success btn-sm" type="button" id="role" data-toggle="dropdown">${contactToEdit.company == null ? "Chose company" : contactToEdit.company.companyName} <span class="caret"></span>
 								    </button>
@@ -71,14 +67,14 @@
 					    	</div>
 						</div>
 					    <div class="form-group">
-					      <label class="control-label col-sm-4" for="birthdate">Birthdate:</label>
-					      <div class="col-sm-8">
+					      <label class="control-label col-sm-3" for="birthdate">Birthdate:</label>
+					      <div class="col-sm-9">
 					        <input type="date" class="form-control" id="birthdate" value="${contactToEdit.lastName == null ? '' : contactToEdit.birthdate}" name="birthdate">
 					      </div>
 					    </div>
 					    <div class="form-group">
-					      <label class="control-label col-sm-4" for="role">Role:</label>
-					      	<div class="col-sm-8">
+					      <label class="control-label col-sm-3" for="role">Role:</label>
+					      	<div class="col-sm-9">
 								<div class="dropdown ">
 								    <button class="btn btn-block dropdown-toggle btn-success  btn-sm" type="button" id="role" data-toggle="dropdown">${contactToEdit.role == null ? "Chose role" : contactToEdit.role.roleName} <span class="caret"></span>
 								    </button>
@@ -92,20 +88,20 @@
 					    	</div>
 						</div>
 					    <div class="form-group container1">
-					      <label class="control-label col-sm-4" for="active"></label>
-					      <div class="col-sm-8">
+					      <label class="control-label col-sm-3" for="active">Active:</label>
+					      <div class="col-sm-9">
 					        <label class="radio-inline text-center">
-						      <input onclick="setActivity('active')" type="radio" name="activity" id="activity" value="active" ${contactToEdit.active = true ? "checked" : ""}>ACTIVE
+						      <input onclick="setActivity('active')" type="radio" name="activity" id="activity" value="active" ${contactToEdit.active == true ? "checked" : ""}>ACTIVE
 						      <span class="checkmark"></span>
 						    </label>
 						    <label class="radio-inline text-center">
-						      <input onclick="setActivity('inactive')" type="radio" name="activity" id="activity" value="inactive" ${contactToEdit.active = false ? "checked" : ""}>INACTIVE
+						      <input onclick="setActivity('inactive')" type="radio" name="activity" id="activity" value="inactive" ${contactToEdit.active == false ? "checked" : ""}>INACTIVE
 						      <span class="checkmark"></span>
 						    </label>
 					      </div>
 					    </div>
 					    <div class="form-group">        
-					      <div class="col-sm-offset-4 col-sm-8">
+					      <div class="col-sm-offset-3 col-sm-9">
 					        <button type="submit" class="btn btn-block btn-primary btn-sm">Submit</button>
 					      </div>
 					    </div>
@@ -442,40 +438,21 @@
 				}
 			    window.onload = functionHide;
 
+
+
 			    function addItem(tag) {
 				    var x = document.getElementById(tag).style.display = "table-row";
 				}
 
 
-				function bs_input_file() {
-					$(".input-file").before(
-						function() {
-							if ( ! $(this).prev().hasClass('input-ghost') ) {
-								var element = $("<input type='file' class='input-ghost' style='visibility:hidden; height:0'>");
-								element.attr("name",$(this).attr("name"));
-								element.change(function(){
-									element.next(element).find('input').val((element.val()).split('\\').pop());
-								});
-								$(this).find("button.btn-choose").click(function(){
-									element.click();
-								});
-								$(this).find("button.btn-reset").click(function(){
-									element.val(null);
-									$(this).parents(".input-file").find('input').val('');
-								});
-								$(this).find('input').css("cursor","pointer");
-								$(this).find('input').mousedown(function() {
-									$(this).parents('.input-file').prev().click();
-									return false;
-								});
-								return element;
-							}
-						}
-					);
+
+				document.getElementById("file").onchange = function() {
+				    document.getElementById("form").submit();
 				}
-				$(function() {
-					bs_input_file();
-				});
+
+
+
+				
 			</script>
 	</body>
 </html>

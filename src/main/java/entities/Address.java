@@ -2,7 +2,7 @@ package main.java.entities;
 
 import java.util.Objects;
 
-public class Address {
+public class Address implements Cloneable {
 
     private Long id;
     private String addressDescription;
@@ -98,6 +98,18 @@ public class Address {
     @Override
     public int hashCode() {
         return Objects.hash(id, addressDescription, state, city, street, zipCode, type);
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Address address = null;
+        try {
+            address = (Address) super.clone();
+        } catch (CloneNotSupportedException e) {
+            address = new Address(this.getId(), this.getAddressDescription(), this.getState(), this.getCity(), this.getStreet(), this.getZipCode(), this.getType());
+        }
+        address.type = (Type) this.type.clone();
+        return address;
     }
 
     @Override
