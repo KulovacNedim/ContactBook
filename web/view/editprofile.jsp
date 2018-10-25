@@ -20,7 +20,7 @@
 			</div>
 			<div class="row margin-bottom-5px padding-bottom-5px">
 				<div class="col-sm-3 col-md-4 col-lg-3 form-group">
-					<img src="/images/users/${contactToEdit.imagePath}" class="img-circle img-responsive" alt="" >
+					<img src="getImage?name=${contactToEdit.imagePath}" class="img-circle img-responsive" alt="" >
 					 <form method="POST" action="editProfile" enctype="multipart/form-data" id="form">
 						<div class="form-group upload-btn-wrapper">
 						    <button class="btn btn-block btn-primary btn-sm">Upload image</button>
