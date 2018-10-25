@@ -67,7 +67,7 @@
 					<div class="row contact-card">
 						<a href="showContact?contactId=${contact.id}&search=${searchPlaceholder}&groupId=${groupId}&groupName=${contactGroupName}&activity=${active}" class="getLink">
 							<div class="hidden-xs col-xs-3 col-sm-4 col-md-5 col-lg-4" >
-								<img src="../images/users/${contact.imagePath}" class="img-circle img-responsive" alt="" >
+								<img src="getImage?name=${contact.imagePath}" class="img-circle img-responsive" alt="" >
 							</div>
 							<div class="col-xs-7 col-sm-6 col-md-5 col-lg-6">
 								<p class="blue-heading ${contact.id == contactToShow.id ? 'selected' : ''}">${contact.lastName} ${contact.firstName}</p>
@@ -88,7 +88,7 @@
 					</div>
 					<div class="row">
 						<div class="hidden-xs hidden-sm col-xs-0 col-sm-1 col-md-5 col-lg-4">
-							<img src="../images/users/${contactToShow.imagePath}" class="img-circle img-responsive" alt="" >
+							<img src="getImage?name=${contactToShow.imagePath}" class="img-circle img-responsive" alt="" >
 						</div>
 						<div class="col-sm-9 col-md-5 col-lg-6">
 							<form class="form-horizontal" action="/action_page.php">

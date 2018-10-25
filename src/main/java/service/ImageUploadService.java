@@ -20,6 +20,10 @@ public class ImageUploadService {
         String fileName = (Paths.get(filePart.getSubmittedFileName()).getFileName().toString()).substring
                 (0, (Paths.get(filePart.getSubmittedFileName()).getFileName().toString()).lastIndexOf('.'));
 
+        if (fileName.length() <= 2) {
+            fileName += "aa"; // set file name lenth to at least 3 characters lenght to avoid creating TempFile issues
+        }
+
         File uploads = new File(PATH);
 
         File file = File.createTempFile(fileName, ".jpg", uploads);
