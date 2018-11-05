@@ -12,6 +12,8 @@ public interface UserRepository {
 
     public void updateUser(User user) throws SQLException;
 
+    public void updatePassword(String password, User user) throws SQLException;
+
     public void deleteUser(User user) throws SQLException;
 
     public User getUserById(Long id) throws SQLException;
