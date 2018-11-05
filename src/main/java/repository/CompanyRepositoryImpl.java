@@ -62,25 +62,16 @@ public class CompanyRepositoryImpl implements CompanyRepository {
     @Override
     public void updateCompanyForUser(User user) throws SQLException {
 
-        Company company = null;
+        String query = "UPDATE users SET company_id = ? WHERE id = ?";
 
-        String query = "SELECT * FROM companies WHERE id = ?";
+        try (
+                PreparedStatement statement = connection.prepareStatement(query);) {
 
-        ResultSet rs = null;
+            statement.setLong(1, user.getCompany().getId());
+            statement.setLong(2, user.getId());
 
-        try (PreparedStatement statement = connection.prepareStatement(query);) {
+            statement.executeUpdate();
 
-            statement.setLong(1, user.getId());
-
-            rs = statement.executeQuery();
-
-            if (rs.next()) {
-
-                company = new Company(rs.getLong("id"), rs.getString("company"));
-                rs.close();
-
-                user.setCompany(company);
-            }
         }
     }
 }

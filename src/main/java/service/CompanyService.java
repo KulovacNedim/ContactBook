@@ -13,4 +13,8 @@ public class CompanyService {
     public List<Company> getAllCompanies() throws SQLException {
         return companyRepo.getAllCompanies();
     }
+
+    public Company getCompanyById(Long id) throws SQLException {
+        return companyRepo.getCompanyById(id);
+    }
 }

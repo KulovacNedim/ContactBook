@@ -32,60 +32,55 @@
 					</form>
 				</div>
 				<div class="col-sm-5 col-md-4 col-lg-4">
-					<form class="form-horizontal" action="/action_page.php">
+					<div class="alert alert-warning ${messageNicknameExist==null ? 'hidden' : 'show'}" >
+					    <strong>Alert!</strong> <c:out value = "${messageNicknameExist}"/>
+					</div>
+					<form class="form-horizontal" method="POST" action="editProfile" name="genInfo">
 					    <div class="form-group">
 					      <label class="control-label col-sm-3" for="first_name">First Name:</label>
 					      <div class="col-sm-9">
-					        <input type="text" class="form-control" id="first_name" placeholder="${contactToEdit.firstName == null ? 'Enter first name' : ''}" value="${contactToEdit.firstName == null ? '' : contactToEdit.firstName}" name="first_name">
+					        <input type="text" class="form-control" id="first_name" placeholder="${contactToEdit.firstName == null ? 'Enter first name' : ''}" value="${contactToEdit.firstName == null ? '' : contactToEdit.firstName}" name="first_name" required>
 					      </div>
 					    </div>
 					    <div class="form-group">
 					      <label class="control-label col-sm-3" for="last_name">Last Name:</label>
 					      <div class="col-sm-9">
-					        <input type="text" class="form-control" id="last_name" placeholder="${contactToEdit.lastName == null ? 'Enter last name' : ''}" value="${contactToEdit.lastName == null ? '' : contactToEdit.lastName}" name="last_name">
+					        <input type="text" class="form-control" id="last_name" placeholder="${contactToEdit.lastName == null ? 'Enter last name' : ''}" value="${contactToEdit.lastName == null ? '' : contactToEdit.lastName}" name="last_name" required>
 					      </div>
 					    </div>
 					    <div class="form-group">
 					      <label class="control-label col-sm-3" for="nick_name">Nickname:</label>
 					      <div class="col-sm-9">          
-					        <input type="text" class="form-control" id="nick_name" placeholder="${contactToEdit.nickName == null ? 'Enter nick name' : ''}" value="${contactToEdit.nickName == null ? '' : contactToEdit.nickName}" name="nick_name">
+					        <input type="text" class="form-control" id="nick_name" placeholder="${contactToEdit.nickName == null ? 'Enter nick name' : ''}" value="${contactToEdit.nickName == null ? '' : contactToEdit.nickName}" name="nick_name" required>
 					      </div>
 					    </div>
 					    <div class="form-group">
-					      <label class="control-label col-sm-3" for="company">Company:</label>
-					      <div class="col-sm-9">
-								<div class="dropdown ">
-								    <button class="btn btn-block dropdown-toggle btn-success btn-sm" type="button" id="role" data-toggle="dropdown">${contactToEdit.company == null ? "Chose company" : contactToEdit.company.companyName} <span class="caret"></span>
-								    </button>
-								    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-									    <c:forEach items="${companies}" var="company" >
-									    <li role="presentation">
-									    	<a role="menuitem" tabindex="-1" value="${company.id}" href="#">${company.companyName}</a></li>
-									    </c:forEach>
-								    </ul>
-								</div>
-					    	</div>
+						    <label class="control-label col-sm-3" for="company">Company:</label>
+						    <div class="col-sm-9">
+								<select name="company" class="form-control btn-success" required>
+									<option hidden ${contactToEdit.company.companyName == null ? "selected" : ""} value="0">Select company</option>
+									<c:forEach items="${companies}" var="company" >
+									<option value="${company.id}" ${contactToEdit.company.id == company.id ? "selected" : ""}>${company.companyName}</option>
+								    </c:forEach>
+								</select>
+							</div>
 						</div>
 					    <div class="form-group">
 					      <label class="control-label col-sm-3" for="birthdate">Birthdate:</label>
 					      <div class="col-sm-9">
-					        <input type="date" class="form-control" id="birthdate" value="${contactToEdit.lastName == null ? '' : contactToEdit.birthdate}" name="birthdate">
+					        <input type="date" class="form-control" id="birthdate" value="${DOB}" name="birthdate" required>
 					      </div>
 					    </div>
 					    <div class="form-group">
 					      <label class="control-label col-sm-3" for="role">Role:</label>
 					      	<div class="col-sm-9">
-								<div class="dropdown ">
-								    <button class="btn btn-block dropdown-toggle btn-success  btn-sm" type="button" id="role" data-toggle="dropdown">${contactToEdit.role == null ? "Chose role" : contactToEdit.role.roleName} <span class="caret"></span>
-								    </button>
-								    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-									    <c:forEach items="${roles}" var="role" >
-									    <li role="presentation">
-									    	<a role="menuitem" tabindex="-1" value="${role.id}" href="#">${role.roleName}</a></li>
-									    </c:forEach>
-								    </ul>
-								</div>
-					    	</div>
+								<select name="role" class="form-control btn-success" required>
+									<option disabled hidden ${contactToEdit.role.roleName == null ? "selected" : ""}>Select role</option>
+									<c:forEach items="${roles}" var="role" >
+									<option value="${role.id}" ${contactToEdit.role.id == role.id ? "selected" : ""}>${role.roleName}</option>
+								    </c:forEach>
+								</select>
+							</div>
 						</div>
 					    <div class="form-group container1">
 					      <label class="control-label col-sm-3" for="active">Active:</label>
@@ -104,6 +99,9 @@
 					      <div class="col-sm-offset-3 col-sm-9">
 					        <button type="submit" class="btn btn-block btn-primary btn-sm">Submit</button>
 					      </div>
+					    </div>
+					    <div class="form-group hiddenElement">
+					        <input type="text" value="updateGenInfo" name="flag"/>
 					    </div>
 					</form>
 				</div>
@@ -449,9 +447,6 @@
 				document.getElementById("file").onchange = function() {
 				    document.getElementById("form").submit();
 				}
-
-
-
 				
 			</script>
 	</body>
