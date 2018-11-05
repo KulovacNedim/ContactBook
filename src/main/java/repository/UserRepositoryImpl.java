@@ -32,7 +32,7 @@ public class UserRepositoryImpl implements UserRepository {
             statement.setString(5, user.getImagePath());
             statement.setBoolean(6, user.isActive());
             statement.setLong(7, user.getRole().getId());
-            statement.setDate(8, (Date) user.getBirthdate());
+            statement.setDate(8, (java.sql.Date) user.getBirthdate());
             statement.setLong(9, user.getCompany() == null ? 0 : user.getCompany().getId());
 
             statement.executeUpdate();
@@ -56,12 +56,14 @@ public class UserRepositoryImpl implements UserRepository {
             statement.setString(5, user.getImagePath());
             statement.setBoolean(6, user.isActive());
             statement.setLong(7, user.getRole().getId());
-            statement.setDate(8, (Date) user.getBirthdate());
+            statement.setDate(8, new java.sql.Date((user.getBirthdate()).getTime()));
             statement.setLong(9, user.getId());
 
             statement.executeUpdate();
 
-            companyRepo.updateCompanyForUser(user);
+            if (user.getCompany() != null && user.getCompany().getId() != 0) {
+                companyRepo.updateCompanyForUser(user);
+            }
             addressRepo.updateAddressListForUser(user);
             emailRepo.updateEmailListForUser(user);
             noteRepo.updateNoteListForUser(user);
@@ -148,12 +150,42 @@ public class UserRepositoryImpl implements UserRepository {
                         rs.getString("nickname"), rs.getString("password"), rs.getString("image_path"),
                         rs.getBoolean("active"), roleRepo.getRoleById(rs.getLong("role_id")),
                         rs.getDate("birthdate"), companyRepo.getCompanyById(rs.getLong("company_id")));
-                rs.close();
 
+                rs.close();
                 setAttributesToUser(user);
             }
         }
         return user;
+    }
+
+    @Override
+    public User getUserByNicknameExcludingMe(String nickname, User user) throws SQLException {
+
+        User anotherUser = new User();
+
+        String query = "SELECT * FROM users WHERE nickname = ? AND id <> ?";
+
+        ResultSet rs = null;
+
+        try (PreparedStatement statement = connection.prepareStatement(query);) {
+
+            statement.setString(1, nickname);
+            statement.setLong(2, user.getId());
+
+            rs = statement.executeQuery();
+
+            if (rs.next()) {
+
+                anotherUser = new User(rs.getLong("id"), rs.getString("first_name"), rs.getString("last_name"),
+                        rs.getString("nickname"), rs.getString("password"), rs.getString("image_path"),
+                        rs.getBoolean("active"), roleRepo.getRoleById(rs.getLong("role_id")),
+                        rs.getDate("birthdate"), companyRepo.getCompanyById(rs.getLong("company_id")));
+
+                rs.close();
+                setAttributesToUser(anotherUser);
+            }
+        }
+        return anotherUser;
     }
 
     @Override

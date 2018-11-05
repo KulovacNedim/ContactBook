@@ -18,6 +18,8 @@ public interface UserRepository {
 
     public User getUserByNickname(String nickname) throws SQLException;
 
+    public User getUserByNicknameExcludingMe(String nickname, User user) throws SQLException;
+
     public List<User> getAllUsers() throws SQLException;
 
     public List<User> getAllUsersByActivity(boolean activity) throws SQLException;

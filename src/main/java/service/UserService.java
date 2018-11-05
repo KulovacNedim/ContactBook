@@ -15,6 +15,10 @@ public class UserService {
         return userRepo.getUserByNickname(nickname);
     }
 
+    public User getUserByNicknameExcludingMe(String nickname, User user) throws SQLException {
+        return userRepo.getUserByNicknameExcludingMe(nickname, user);
+    }
+
     public List<User> getAllUsers() throws SQLException {
         return userRepo.getAllUsers();
     }
