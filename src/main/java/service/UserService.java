@@ -46,4 +46,8 @@ public class UserService {
     public void updateUser(User user) throws SQLException {
         userRepo.updateUser(user);
     }
+
+    public void updatePassword(String password, User user) throws SQLException {
+        userRepo.updatePassword(password, user);
+    }
 }

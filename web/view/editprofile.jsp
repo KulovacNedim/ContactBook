@@ -106,23 +106,44 @@
 					</form>
 				</div>
 				<div class="col-sm-4 col-md-4 col-lg-5">
-					<form class="form-horizontal" action="/action_page.php">
+					<div class="alert alert-warning ${messageWrongPasswordConfirm==null ? 'hidden' : 'show'}" >
+					    <strong>Alert!</strong> <c:out value = "${messageWrongPasswordConfirm}"/>
+					</div>
+					<div class="alert alert-warning ${messageWrongPassword==null ? 'hidden' : 'show'}" >
+					    <strong>Alert!</strong> <c:out value = "${messageWrongPassword}"/>
+					</div>
+					<div class="alert alert-success ${messagePasswordChanged==null ? 'hidden' : 'show'}" >
+					    <strong>Success!</strong> <c:out value = "${messagePasswordChanged}"/>
+					</div>
+					<div class="alert alert-warning ${messageWrongLenght==null ? 'hidden' : 'show'}" >
+					    <strong>Warning!</strong> <c:out value = "${messageWrongLenght}"/>
+					</div>
+					<form class="form-horizontal" action="editProfile" method="POST">
 					    <div class="form-group">
-					      <label class="control-label col-sm-4" for="pwd">Password:</label>
+					      <label class="control-label col-sm-4" for="pwd_current">Current password:</label>
 					      <div class="col-sm-8">          
-					        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+					        <input type="password" class="form-control" id="pwd_current" placeholder="Enter password" name="pwd_current" required>
 					      </div>
 					    </div>
 					    <div class="form-group">
-					      <label class="control-label col-sm-4" for="pwd_new">Password confirm:</label>
+					      <label class="control-label col-sm-4" for="pwd_new">New password:</label>
 					      <div class="col-sm-8">          
-					        <input type="password" class="form-control" id="pwd_new" placeholder="Confirm password" name="pwd_new">
+					        <input type="password" class="form-control" id="pwd_new" placeholder="Confirm password" name="pwd_new" required>
+					      </div>
+					    </div>
+					    <div class="form-group">
+					      <label class="control-label col-sm-4" for="pwd_new_cnf">Confirm new password:</label>
+					      <div class="col-sm-8">          
+					        <input type="password" class="form-control" id="pwd_new_cnf" placeholder="Confirm password" name="pwd_new_cnf" required>
 					      </div>
 					    </div>
 					    <div class="form-group">        
 					      <div class="col-sm-offset-4 col-sm-8">
 					        <button type="submit" class="btn btn-block btn-primary btn-sm">Change password</button>
 					      </div>
+					    </div>
+					    <div class="form-group hiddenElement">
+					        <input type="text" value="updatePassword" name="flag"/>
 					    </div>
 					  </form>
 				</div>
@@ -446,6 +467,25 @@
 
 				document.getElementById("file").onchange = function() {
 				    document.getElementById("form").submit();
+				}
+
+				function functionHide() {
+				    document.getElementById("message").style.display = "none";
+				}
+			    window.onload = functionHide;
+
+
+				var myInput = document.getElementById("passReg");
+				var length = document.getElementById("length");
+
+				// When the user starts to type something inside the password field
+				myInput.onkeyup = function() {
+				  // Validate length
+				  if(myInput.value.length >= 8 || myInput.value.length == 0) {
+				    document.getElementById("message").style.display = "none";
+				  } else {
+				    document.getElementById("message").style.display = "block";
+				  }
 				}
 				
 			</script>

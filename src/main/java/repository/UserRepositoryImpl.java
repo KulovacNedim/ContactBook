@@ -72,6 +72,21 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public void updatePassword(String password, User user) throws SQLException {
+
+        String query = "UPDATE users SET password = ? WHERE id = ?";
+
+        try (
+                PreparedStatement statement = connection.prepareStatement(query);) {
+
+            statement.setString(1, password);
+            statement.setLong(2, user.getId());
+
+            statement.executeUpdate();
+        }
+    }
+
+    @Override
     public void deleteUser(User user) throws SQLException {
 
         if (user != null) {

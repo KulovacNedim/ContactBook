@@ -3,6 +3,7 @@ package main.java.service;
 import main.java.entities.Company;
 import main.java.entities.Role;
 import main.java.entities.User;
+import main.java.validation.PasswordHash;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -84,6 +85,35 @@ public class EditProfileService {
             contactToEdit.setActive(active);
 
             userService.updateUser(contactToEdit);
+
+        } else if (flag.equals("updatePassword")) {
+            //update password
+
+            contactToEdit = (User) req.getSession().getAttribute("contactToEdit");
+
+            String currentPassword = PasswordHash.getHash(req.getParameter("pwd_current"));
+            String newPassword = PasswordHash.getHash(req.getParameter("pwd_new"));
+            String newPasswordConfirm = PasswordHash.getHash(req.getParameter("pwd_new_cnf"));
+
+            if (contactToEdit.getPassword().equals(currentPassword)) {
+
+                if ((req.getParameter("pwd_new")).length() < 8) {
+                    String messageWrongLenght = "Password must be at least 8 characters long. Try again.";
+                    req.setAttribute("messageWrongLenght", messageWrongLenght);
+                } else if (!newPassword.equals(newPasswordConfirm)) {
+                    String messageWrongPasswordConfirm = "New password and new password confirmation are not equals. Operation canceled.";
+                    req.setAttribute("messageWrongPasswordConfirm", messageWrongPasswordConfirm);
+                } else {
+                    contactToEdit.setPassword(newPassword);
+                    userService.updatePassword(newPassword, contactToEdit);
+                    String messagePasswordChanged = "Password changed successfully.";
+                    req.setAttribute("messagePasswordChanged", messagePasswordChanged);
+                }
+
+            } else {
+                String messageWrongPassword = "You enetered wrong password. Operation canceled.";
+                req.setAttribute("messageWrongPassword", messageWrongPassword);
+            }
         }
 
         try {
