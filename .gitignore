@@ -1,3 +1,4 @@
-.idea/ContactBook.iml
+.idea/
 target/
 out/
+web/images/users

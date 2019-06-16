@@ -17,7 +17,7 @@ public class ImageServingServlet extends HttpServlet {
 
         String imageName = req.getParameter("name");
 
-        final String PATH = "C:\\Users\\User\\IdeaProjects\\ContactBook\\web\\images\\users";
+        final String PATH = "C:\\Users\\Nedim\\Desktop\\JavaWorkspace\\ContactBook\\web\\images\\users";
 
         File file = new File(PATH, imageName);
         resp.setHeader("Content-Type", getServletContext().getMimeType(imageName));

@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 	<head>
 		<%@ include file="headContent.jsp"%>
@@ -77,7 +78,7 @@
 								<select name="role" class="form-control btn-success" required>
 									<option disabled hidden ${contactToEdit.role.roleName == null ? "selected" : ""}>Select role</option>
 									<c:forEach items="${roles}" var="role" >
-									<option value="${role.id}" ${contactToEdit.role.id == role.id ? "selected" : ""}>${role.roleName}</option>
+									<option value="${role.id}" ${contactToEdit.role.id == role.id ? "selected" : ""} ${contactToEdit.role.id != role.id && loggedInUser.role.roleName != 'Admin' ? "disabled" : ""}>${role.roleName}</option>
 								    </c:forEach>
 								</select>
 							</div>
@@ -86,11 +87,11 @@
 					      <label class="control-label col-sm-3" for="active">Active:</label>
 					      <div class="col-sm-9">
 					        <label class="radio-inline text-center">
-						      <input onclick="setActivity('active')" type="radio" name="activity" id="activity" value="active" ${contactToEdit.active == true ? "checked" : ""}>ACTIVE
+						      <input onclick="setActivity('active')" type="radio" name="activity" id="activity" value="active" ${contactToEdit.active == true ? "checked" : ""} {loggedInUser.role.roleName != 'Admin' ? disabled : }>ACTIVE
 						      <span class="checkmark"></span>
 						    </label>
 						    <label class="radio-inline text-center">
-						      <input onclick="setActivity('inactive')" type="radio" name="activity" id="activity" value="inactive" ${contactToEdit.active == false ? "checked" : ""}>INACTIVE
+						      <input onclick="setActivity('inactive')" type="radio" name="activity" id="activity" value="inactive" ${contactToEdit.active == false ? "checked" : ""} {loggedInUser.role.roleName != 'Admin' ? disabled : }>INACTIVE
 						      <span class="checkmark"></span>
 						    </label>
 					      </div>
