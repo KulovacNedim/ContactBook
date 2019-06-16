@@ -125,6 +125,7 @@
 							</form>
 						</div>
 						<div class=" col-sm-2 col-md-2 col-lg-2">
+							<button type="button" class="btn btn-primary btn-block  btn-sm">Edit</button>
 							<div class="dropdown ">
 							    <button class="btn btn-block dropdown-toggle btn-primary  btn-sm" type="button" id="menu2" data-toggle="dropdown">${refContactGroup.contactGroup == null ? "Add to contact group" : refContactGroup.contactGroup} <span class="caret"></span>
 							    </button>
@@ -135,7 +136,6 @@
 								    </c:forEach>
 							    </ul>
 							</div>
-							<button type="button" class="btn btn-primary btn-block  btn-sm">Edit</button>
 						</div>
 					</div>
 					<div class="row tabs">

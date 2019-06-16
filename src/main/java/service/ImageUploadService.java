@@ -14,7 +14,7 @@ public class ImageUploadService {
 
     public String uploadUserprofileImage(HttpServletRequest req) throws IOException, ServletException {
 
-        final String PATH = "C:\\Users\\User\\IdeaProjects\\ContactBook\\web\\images\\users";
+        final String PATH = "C:\\Users\\Nedim\\Desktop\\JavaWorkspace\\ContactBook\\web\\images\\users";
 
         Part filePart = req.getPart("file");
         String fileName = (Paths.get(filePart.getSubmittedFileName()).getFileName().toString()).substring

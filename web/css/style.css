@@ -200,3 +200,7 @@ clip: rect(1px, 1px, 1px, 1px);}
   top: 0;
   opacity: 0;
 }
+
+.main-nav {
+    background-color: #337AB7;
+}

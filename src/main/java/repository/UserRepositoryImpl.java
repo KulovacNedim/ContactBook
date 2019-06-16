@@ -47,7 +47,7 @@ public class UserRepositoryImpl implements UserRepository {
                 "active = ?, role_id = ?, birthdate = ? WHERE id = ?";
 
         try (
-                PreparedStatement statement = connection.prepareStatement(query);) {
+                PreparedStatement statement = connection.prepareStatement(query)) {
 
             statement.setString(1, user.getFirstName());
             statement.setString(2, user.getLastName());
@@ -56,7 +56,7 @@ public class UserRepositoryImpl implements UserRepository {
             statement.setString(5, user.getImagePath());
             statement.setBoolean(6, user.isActive());
             statement.setLong(7, user.getRole().getId());
-            statement.setDate(8, new java.sql.Date((user.getBirthdate()).getTime()));
+            statement.setDate(8, user.getBirthdate() == null ? null : new java.sql.Date((user.getBirthdate()).getTime()));
             statement.setLong(9, user.getId());
 
             statement.executeUpdate();

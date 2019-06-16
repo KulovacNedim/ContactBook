@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 	<head>
 		<%@ include file="headContent.jsp"%>
@@ -11,10 +12,9 @@
 			<%@ include file="navigationBar.jsp"%>
 			<div class="row margin-bottom-5px padding-bottom-5px border-bottom-orange">
 				<div class="col-sm-9">
-					<h2>Manage contacts</h2>
+					<h2>Manage contact</h2>
 				</div>
 				<div class="col-sm-3">
-					<button type="button" class="btn btn-primary btn-block btn-top-margine">Save changes</button>
 					<button type="button" class="btn btn-primary btn-block btn-top-margine">Cancel</button>
 				</div>
 			</div>
@@ -77,7 +77,7 @@
 								<select name="role" class="form-control btn-success" required>
 									<option disabled hidden ${contactToEdit.role.roleName == null ? "selected" : ""}>Select role</option>
 									<c:forEach items="${roles}" var="role" >
-									<option value="${role.id}" ${contactToEdit.role.id == role.id ? "selected" : ""}>${role.roleName}</option>
+									<option value="${role.id}" ${contactToEdit.role.id == role.id ? "selected" : ""} ${contactToEdit.role.id != role.id && loggedInUser.role.roleName != 'Admin' ? "disabled" : ""}>${role.roleName}</option>
 								    </c:forEach>
 								</select>
 							</div>
