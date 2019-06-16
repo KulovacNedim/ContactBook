@@ -12,10 +12,9 @@
 			<%@ include file="navigationBar.jsp"%>
 			<div class="row margin-bottom-5px padding-bottom-5px border-bottom-orange">
 				<div class="col-sm-9">
-					<h2>Manage contacts</h2>
+					<h2>Manage contact</h2>
 				</div>
 				<div class="col-sm-3">
-					<button type="button" class="btn btn-primary btn-block btn-top-margine">Save changes</button>
 					<button type="button" class="btn btn-primary btn-block btn-top-margine">Cancel</button>
 				</div>
 			</div>
@@ -87,11 +86,11 @@
 					      <label class="control-label col-sm-3" for="active">Active:</label>
 					      <div class="col-sm-9">
 					        <label class="radio-inline text-center">
-						      <input onclick="setActivity('active')" type="radio" name="activity" id="activity" value="active" ${contactToEdit.active == true ? "checked" : ""} {loggedInUser.role.roleName != 'Admin' ? disabled : }>ACTIVE
+						      <input onclick="setActivity('active')" type="radio" name="activity" id="activity" value="active" ${contactToEdit.active == true ? "checked" : ""}>ACTIVE
 						      <span class="checkmark"></span>
 						    </label>
 						    <label class="radio-inline text-center">
-						      <input onclick="setActivity('inactive')" type="radio" name="activity" id="activity" value="inactive" ${contactToEdit.active == false ? "checked" : ""} {loggedInUser.role.roleName != 'Admin' ? disabled : }>INACTIVE
+						      <input onclick="setActivity('inactive')" type="radio" name="activity" id="activity" value="inactive" ${contactToEdit.active == false ? "checked" : ""}>INACTIVE
 						      <span class="checkmark"></span>
 						    </label>
 					      </div>

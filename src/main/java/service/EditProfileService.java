@@ -47,7 +47,8 @@ public class EditProfileService {
         } else if (flag.equals("updateGenInfo")) {
             // edit general info
 
-            contactToEdit = (User) req.getSession().getAttribute("contactToEdit");
+            //contactToEdit = (User) req.getSession().getAttribute("contactToEdit");
+            contactToEdit = userService.getUserById((long) 301);
 
             contactToEdit.setFirstName(req.getParameter("first_name"));
             contactToEdit.setLastName(req.getParameter("last_name"));
