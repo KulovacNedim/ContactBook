@@ -7,7 +7,7 @@ ContactBook is Java Web Application. It allows to login/register users, edit pro
 
 ### Clone
 
-- Clone this repo to your local machine using `https://github.com/KulovacNedim/ContactBook`
+- Clone this repo to your local machine using `https://github.com/KulovacNedim/ContactBook.git`
 
 ---
 
